@@ -17,3 +17,7 @@ s2 = r"Hello \nWorld"
 
 print(s1)
 print(s2)
+
+text = "World"
+
+print(f"{text:<20} - Hello")
