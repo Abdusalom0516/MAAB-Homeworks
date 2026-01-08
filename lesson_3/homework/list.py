@@ -399,3 +399,135 @@ print(numbersList)
 print(numbersList2)
 print(mergedSortedList)
 
+
+
+# Task 33
+print("---------- TASK 33 -----------")
+
+myList = ["Abdusalom", "freedom", "999", "freedom", "The World", "jojo", "Anime"]
+element = "freedom"
+
+indices = []
+
+for i in range(len(myList)):
+    if myList[i] == element:
+        indices.append(i)
+
+print(myList)
+print(element)
+print(indices)
+
+
+
+# Task 34
+print("---------- TASK 34 -----------")
+
+myList = ["Abdusalom", "freedom", "999", "freedom", "The World", "jojo", "Anime"]
+
+rotatedList = myList.copy()
+
+removedElement = rotatedList.pop()
+
+rotatedList.insert(0, removedElement)
+
+print(myList)
+print(rotatedList)
+
+
+# Task 35
+print("---------- TASK 35 -----------")
+
+rangeList = []
+
+for number in range(10):
+    rangeList.append(number+1)
+
+print(rangeList)
+
+
+
+# Task 36
+print("---------- TASK 36 -----------")
+
+numbersList = [-1, 134, -281, -42, 5, 26]
+
+positiveNumsSum = 0
+
+for number in numbersList:
+    if number > 0:
+        positiveNumsSum+=number
+
+print(numbersList)
+print(positiveNumsSum)
+
+
+
+# Task 37
+print("---------- TASK 37 -----------")
+
+numbersList = [-1, 134, -281, -42, 5, 26]
+
+negativeNumsSum = 0
+
+for number in numbersList:
+    if number < 0:
+        negativeNumsSum+=number
+
+print(numbersList)
+print(negativeNumsSum)
+
+
+
+# Task 38
+print("---------- TASK 38 -----------")
+
+myList = ["Hello", "Damn", "Hello"]
+
+reversedList = myList.copy()
+
+reversedList.reverse()
+
+print(myList)
+print(reversedList)
+
+if myList == reversedList:
+    print(True)
+else:
+    print(False)
+
+
+
+# Task 39
+print("---------- TASK 39 -----------")
+
+numbersList = [-1, 134, -281, -42, 5, 26, 999]
+
+nestedList = []
+
+for i in range(len(numbersList)):
+    if i % 2 != 0:
+        nestedList.append([numbersList[i-1], numbersList[i]])
+
+if len(numbersList) % 2 != 0:
+    nestedList.append([numbersList[len(numbersList)-1]])
+
+print(nestedList)
+
+
+
+# Task 40
+print("---------- TASK 40 -----------")
+
+numbersList = [1, 134, -281, 999, 1, -281, -42, 5, 26, 999]
+
+uniqueElements = []
+
+for elem in numbersList:
+    countOfElem = uniqueElements.count(elem)
+
+    if countOfElem == 0:
+        uniqueElements.append(elem)
+
+
+print(numbersList)
+print(uniqueElements)
