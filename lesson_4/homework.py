@@ -51,46 +51,46 @@ print(newTxt)
 
 # Task 4
 print("--------------- Task 4 ----------------")
-# import random
-# randomNumber = random.randint(1, 100)
-# liveCount = 10
+import random
+randomNumber = random.randint(1, 100)
+liveCount = 10
 
-# while True:
-#     userGuess = int(input("Enter your guess number: "))
+while True:
+    userGuess = int(input("Enter your guess number: "))
 
-#     if userGuess > randomNumber:
-#         liveCount -= 1
-#         print(f"Too high! Remaining live count: {liveCount}.")
-#     elif userGuess < randomNumber:
-#         liveCount -= 1
-#         print(f"Too low! Remaining live count: {liveCount}.")
-#     else:
-#         print("You guessed it right!")
-#         break
+    if userGuess > randomNumber:
+        liveCount -= 1
+        print(f"Too high! Remaining live count: {liveCount}.")
+    elif userGuess < randomNumber:
+        liveCount -= 1
+        print(f"Too low! Remaining live count: {liveCount}.")
+    else:
+        print("You guessed it right!")
+        break
 
-#     if liveCount <= 0:
-#         userChoise = input(f"You lost. The random numbers was {randomNumber}. Want to play again? ")
+    if liveCount <= 0:
+        userChoise = input(f"You lost. The random numbers was {randomNumber}. Want to play again? ")
 
-#         if userChoise == "Y" or userChoise == "YES" or userChoise == "yes" or userChoise == "y" or userChoise == "OK" or userChoise == "ok":
-#             liveCount = 10
-#             randomNumber = random.randint(1, 100)
-#         else:
-#             break
+        if userChoise == "Y" or userChoise == "YES" or userChoise == "yes" or userChoise == "y" or userChoise == "OK" or userChoise == "ok":
+            liveCount = 10
+            randomNumber = random.randint(1, 100)
+        else:
+            break
 
 
 # Task 5
-# print("--------------- Task 5 ----------------")
-# import re
+print("--------------- Task 5 ----------------")
+import re
 
-# while True:
-#     password = input("Enter a password: ")
-#     if len(password) < 8:
-#         print("Password is too short.")
-#     elif not bool(re.search(f"[A-Z]", password)):
-#         print("Password must contain an uppercase letter.")
-#     else:
-#         print("Password is strong.")
-#         break
+while True:
+    password = input("Enter a password: ")
+    if len(password) < 8:
+        print("Password is too short.")
+    elif not bool(re.search(f"[A-Z]", password)):
+        print("Password must contain an uppercase letter.")
+    else:
+        print("Password is strong.")
+        break
 
 
 # Task 6
