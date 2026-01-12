@@ -92,3 +92,28 @@ print(f"Student median: {studentMedian}.")
 
 print(f"Tution mean: {tutionMean}.")
 print(f"Tution median: {tuitionMedian}.")
+
+
+# Task 5
+print("--------------- Task 5 ----------------")
+
+def isPrime(*, number):
+    dividableCounts = 0
+    for i in range(number):
+        if number % (i+1) == 0:
+            dividableCounts+=1
+            if dividableCounts > 2:
+                return False
+
+    if dividableCounts > 2:
+        return False
+
+    return True
+
+
+print(isPrime(number=9))
+print(isPrime(number=7))
+print(isPrime(number=11))
+print(isPrime(number=6))
+print(isPrime(number=157))
+
