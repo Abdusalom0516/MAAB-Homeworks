@@ -1,3 +1,5 @@
+#Dictionary
+
 # Task 1
 print("--------- TASK 1 -----------")
 dictionary = {
@@ -471,7 +473,9 @@ for elem in dictionary.items():
     if not firstKeyValue:
         firstKeyValue = {elem[0]: elem[1]}
         break
-        
+
 
 print(firstKeyValue)
+
+
 
