@@ -1,4 +1,4 @@
-# Generator 
+# Generator
 
 def generator():
     yield 1
