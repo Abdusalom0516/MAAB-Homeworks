@@ -57,7 +57,7 @@ def countWords(txt): # Returns integer
     return len(str(txt).split(" "))
 
 
-def give5MostFrequentWords(txt): # Returns List of Tuples
+def giveMostFrequentWords(txt, topCommonNumber): # Returns List of Tuples
     dictionary = {}
     splitList = str(txt).split(" ")
 
@@ -71,16 +71,18 @@ def give5MostFrequentWords(txt): # Returns List of Tuples
 
     itemsList.sort(key=lambda a: a[1], reverse=True)
 
-    return itemsList[:5]
+    return itemsList[:topCommonNumber]
 
 
 with open("sample.txt", "+r") as f:
+    topCommonWordsNumber = int(input("How many top common words do you need? "))
     txt = f.read()
 
     if txt:
+        print(f"Sentence: '{txt}'.")
         filteredTxt = filterTxt(txt=txt)
         countOfWords = countWords(txt=filteredTxt)
-        mostFrequent5Words = give5MostFrequentWords(filteredTxt)
+        mostFrequent5Words = giveMostFrequentWords(filteredTxt, topCommonWordsNumber)
 
         print("Word Count Report")
         print(f"Total Words: {countOfWords}")
@@ -96,10 +98,11 @@ with open("sample.txt", "+r") as f:
         f.seek(0)
 
         txt = f.read()
+        print(f"Sentence: '{txt}'.")
 
         filteredTxt = filterTxt(txt=txt)
         countOfWords = countWords(txt=filteredTxt)
-        mostFrequent5Words = give5MostFrequentWords(filteredTxt)
+        mostFrequent5Words = giveMostFrequentWords(filteredTxt, topCommonWordsNumber)
 
         print("Word Count Report")
         print(f"Total Words: {countOfWords}")
