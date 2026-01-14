@@ -26,7 +26,7 @@
 from datetime import date
 class Task:
     def __str__(self):
-        print(f"taskID:{self.taskID}, title:{self.title}, description:{self.description}, status:{self.status}, dueDate:{self.dueDate}")
+        return f"taskID:{self.taskID}, title:{self.title}, description:{self.description}, status:{self.status}, dueDate:{self.dueDate}"
 
     def __init__(self, *, taskID, title, description, status, dueDate=date.today()):
         self.taskID = taskID
@@ -34,8 +34,14 @@ class Task:
         self.description = description
         self.dueDate = dueDate
         self.status = status
+    
+    def toJson(self):
+        return {f"taskID: {self.taskID}, title: {self.title}, description: {self.description}, status: {self.status}, dueDate: {self.dueDate}"}
 
-
+    @staticmethod
+    def fromJson(json: dict):
+        return Task(taskID=json["taskID"], description=json["description"], title=json["title"], status=json["status"], dueDate=json["dueDate"])
+        
 class ToDo:
     def __init__(self):
         while True:
@@ -53,7 +59,9 @@ Welcome to the To-Do Application!
             if userOption == "6":
                 break
             elif userOption == "1":
-                pass
+                with open("tasks.json", "a+") as f:
+                    f.write()
+
             elif userOption == "2":
                 pass
             elif userOption == "3":
