@@ -67,7 +67,11 @@ def give5MostFrequentWords(txt): # Returns List of Tuples
         else:
             dictionary[elem] = dictionary[elem]+1
 
-    return list(dictionary.items())[:5]
+    itemsList = list(dictionary.items())
+
+    itemsList.sort(key=lambda a: a[1], reverse=True)
+
+    return itemsList[:5]
 
 
 with open("sample.txt", "+r") as f:
