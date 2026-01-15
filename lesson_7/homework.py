@@ -27,7 +27,10 @@ from datetime import date
 import json
 class Task:
     def __str__(self):
-        return f"taskID:{self.taskID}, title:{self.title}, description:{self.description}, status:{self.status}, dueDate:{self.dueDate}"
+        return f"taskID: {self.taskID}, title: {self.title}, description: {self.description}, status: {self.status}, dueDate: {self.dueDate}"
+    
+    def toString(self):
+        return f"taskID: {self.taskID}, title: {self.title}, description: {self.description}, status: {self.status}, dueDate: {self.dueDate}"
 
     def __init__(self, *, taskID, title, description, status, dueDate=date.today()):
         self.taskID = taskID
@@ -95,7 +98,21 @@ Welcome to the To-Do Application!
 
     @staticmethod
     def viewTasks():
-        pass
+        data = {}
+        with open("tasks.json", "r") as f:
+            try:
+                data = json.load(f)
+            except json.JSONDecodeError:
+                data = {}
+
+        taskNumber = 0
+        for elem in data.values():
+            taskNumber += 1
+            print(f"{taskNumber}. "+Task.fromJson(elem).toString())
+        
+        if taskNumber == 0:
+            print("\nNo task found!")
+
 
     @staticmethod
     def updateTask():
