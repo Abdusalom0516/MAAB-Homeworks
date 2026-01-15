@@ -166,7 +166,25 @@ Welcome to the To-Do Application!
 
     @staticmethod
     def filterTaskByStatus():
-        pass
+        taskStatus = input("Enter a status to filter: ")
+
+        data = {}
+        with open("tasks.json", "r") as f:
+            try:
+                data = json.load(f)
+            except json.JSONDecodeError:
+                data = {}
+        
+        taskNumber = 0
+        print("\n")
+        for elem in data.values():
+            taskConv = Task.fromJson(elem)
+            if taskConv.status == taskStatus:
+                 taskNumber+=1
+                 print(f"{taskNumber}. "+Task.fromJson(elem).toString())
+        
+        if taskNumber == 0:
+            print(f"\nTasks not found with {taskStatus} Status!")
 
 
 
