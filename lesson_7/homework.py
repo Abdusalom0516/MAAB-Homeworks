@@ -2,6 +2,7 @@
 # ** Generalized `Vector` Class
 # ** Objective**: Create a Python class `Vector` that represents a mathematical vector in an n-dimensional space, capable of handling any number of dimensions.
 
+import math
 class Vector:
     def __init__(self, *arg):
         self.values = arg
@@ -40,15 +41,66 @@ class Vector:
             print("Vectors have differenct length!")
             return None
 
+    def __rmul__(self, v2):
+        return self.__mul__(v2)
+
+    def __mul__(self, v2):
+
+        if isinstance(v2, (int, float)):
+            values1 = self.values
+            newValues = []
+
+            for i in range(len(values1)):
+                    newValues.append(values1[i] * v2)
+
+            return Vector(*newValues)
+        else:
+            if len(self) == len(v2):
+                values1 = self.values
+                values2 = v2.values
+                newValues = []
+
+                for i in range(len(values1)):
+                    newValues.append(values1[i] * values2[i])
+
+                return Vector(*newValues)
+            else:
+                print("Vectors have differenct length!")
+                return None
+
+    def magnitude(self):
+        squaredValues = [elem**2 for elem in self.values]
+
+        sumOfValues = sum(squaredValues)
+
+        return math.sqrt(sumOfValues)
+
+    def normalize(self):
+        magnitudeValue = self.magnitude()
+        newValue = []
+
+        for elem in self.values:
+            newValue.append(round(elem/magnitudeValue, 3))
+
+        return Vector(*newValue)
+
+
+
 
 v1 = Vector(1, 2, 3)
 v2 = Vector(5, 8, 4)
 v3 = v1 + v2
 v4 = v3 - Vector(7, 3, 1)
 
+multiplication = v1 * v2
+scalarMultiplication = v1 * 2
+
 print(v3)
 print(v4)
-
+print(multiplication)
+print(scalarMultiplication)
+print(v1.magnitude())
+print(v1.normalize())
 
 
 # ** Employee Records Manager (OOP Version)
