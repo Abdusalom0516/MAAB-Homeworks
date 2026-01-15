@@ -24,6 +24,7 @@
 # 6. **Save and load tasks**: Save tasks to a file and load them from the file on startup.
 
 from datetime import date
+import json
 class Task:
     def __str__(self):
         return f"taskID:{self.taskID}, title:{self.title}, description:{self.description}, status:{self.status}, dueDate:{self.dueDate}"
@@ -59,32 +60,53 @@ Welcome to the To-Do Application!
             if userOption == "6":
                 break
             elif userOption == "1":
-                with open("tasks.json", "a+") as f:
-                    f.write()
-
+                ToDo.addNewTask()
             elif userOption == "2":
-                pass
+                 ToDo.viewTasks()
             elif userOption == "3":
-                pass
+                ToDo.updateTask()
             elif userOption == "4":
-                pass
+                ToDo.deleteTask()
             elif userOption == "5":
-                pass
+                ToDo.filterTaskByStatus()
             else:
                 print("Invalid Option!")
 
+    @staticmethod
+    def addNewTask():
+        data = {}
+        with open("tasks.json", "r") as f:
+            try:
+                data = json.load(f)
+            except json.JSONDecodeError:
+                data = {}
+
+            newtTaskID = int(input("Enter a taskID: "))
+            newtTaskTitle = input("Enter a title: ")
+            newtTaskDescription = input("Enter a description: ")
+            newtTaskStatus = input("Enter a status: ")
 
 
-    def viewTasks(self):
+            data[newtTaskID] = {"taskID": newtTaskID, "title": newtTaskTitle, "description": newtTaskDescription, "dueDate": "2026-01-20", "status": newtTaskStatus}
+
+        with open("tasks.json", "w") as f:
+            json.dump(data, f, indent=4)
+
+
+    @staticmethod
+    def viewTasks():
         pass
 
-    def updateTask(self, *, taskID):
+    @staticmethod
+    def updateTask():
         pass
 
-    def deleteTask(self, *, taskID):
+    @staticmethod
+    def deleteTask():
         pass
 
-    def filterTaskByStatus(self, *, status):
+    @staticmethod
+    def filterTaskByStatus():
         pass
 
 
