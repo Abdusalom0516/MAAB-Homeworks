@@ -145,7 +145,24 @@ Welcome to the To-Do Application!
 
     @staticmethod
     def deleteTask():
-        pass
+        taskId = input("Enter a taskID to delete: ")
+
+        data = {}
+        with open("tasks.json", "r") as f:
+            try:
+                data = json.load(f)
+            except json.JSONDecodeError:
+                data = {}
+
+        deletedValue = data.pop(taskId, None)
+
+        if deletedValue == None:
+            print(f"\nTask not found with {taskId} ID!")
+        else:
+            print("\nTask deleted successfully 🎉.")
+            with open("tasks.json", "w") as f:
+                json.dump(data, f)
+
 
     @staticmethod
     def filterTaskByStatus():
