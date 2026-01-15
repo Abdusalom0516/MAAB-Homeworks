@@ -2,6 +2,52 @@
 # ** Generalized `Vector` Class
 # ** Objective**: Create a Python class `Vector` that represents a mathematical vector in an n-dimensional space, capable of handling any number of dimensions.
 
+class Vector:
+    def __init__(self, *arg):
+        self.values = arg
+
+    def __len__(self):
+        return len(self.values)
+
+    def __str__(self):
+        return f"Vector{self.values}"
+
+    def __add__(self, v2):
+        if len(self) == len(v2):
+            values1 = self.values
+            values2 = v2.values
+            newValues = []
+
+            for i in range(len(values1)):
+                newValues.append(values1[i] + values2[i])
+
+            return Vector(*newValues)
+        else:
+            print("Vectors have differenct length!")
+            return None
+
+    def __sub__(self, v2):
+        if len(self) == len(v2):
+            values1 = self.values
+            values2 = v2.values
+            newValues = []
+
+            for i in range(len(values1)):
+                newValues.append(values1[i] - values2[i])
+
+            return Vector(*newValues)
+        else:
+            print("Vectors have differenct length!")
+            return None
+
+
+v1 = Vector(1, 2, 3)
+v2 = Vector(5, 8, 4)
+v3 = v1 + v2
+v4 = v3 - Vector(7, 3, 1)
+
+print(v3)
+print(v4)
 
 
 
