@@ -88,9 +88,10 @@ Welcome to the To-Do Application!
             newtTaskTitle = input("Enter a title: ")
             newtTaskDescription = input("Enter a description: ")
             newtTaskStatus = input("Enter a status: ")
+            newtTaskDueDate = input("Enter a due date (YYYY-MM-DD): ")
 
 
-            data[newtTaskID] = {"taskID": newtTaskID, "title": newtTaskTitle, "description": newtTaskDescription, "dueDate": "2026-01-20", "status": newtTaskStatus}
+            data[newtTaskID] = {"taskID": newtTaskID, "title": newtTaskTitle, "description": newtTaskDescription, "dueDate": newtTaskDueDate, "status": newtTaskStatus}
 
         with open("tasks.json", "w") as f:
             json.dump(data, f, indent=4)
@@ -109,14 +110,38 @@ Welcome to the To-Do Application!
         for elem in data.values():
             taskNumber += 1
             print(f"{taskNumber}. "+Task.fromJson(elem).toString())
-        
+
+        print("\n")
         if taskNumber == 0:
             print("\nNo task found!")
 
 
     @staticmethod
     def updateTask():
-        pass
+        taskId = input("Enter a taskID to update: ")
+
+        data = {}
+        with open("tasks.json", "r") as f:
+            try:
+                data = json.load(f)
+            except json.JSONDecodeError:
+                data = {}
+
+        newtTaskTitle = input("Enter a title: ")
+        newtTaskDescription = input("Enter a description: ")
+        newtTaskStatus = input("Enter a status: ")
+        newtTaskDueDate = input("Enter a due date (YYYY-MM-DD): ")
+
+        task = data.get(taskId)
+
+        if task == None:
+            print(f"\nTask not found with {taskId} ID!")
+        else:
+            data[taskId] = {"taskID": taskId, "title": newtTaskTitle, "description": newtTaskDescription, "dueDate": newtTaskDueDate, "status": newtTaskStatus}
+            print("\nTask updated successfully 🎉.")
+
+        with open("tasks.json", "w") as f:
+            json.dump(data, f)
 
     @staticmethod
     def deleteTask():
