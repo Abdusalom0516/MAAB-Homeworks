@@ -1,0 +1,14 @@
+{
+    "1": {
+        "employeeID": 1,
+        "name": "Abdusalom",
+        "position": "Data analytics",
+        "salary": 2500.0
+    },
+    "2": {
+        "employeeID": 2,
+        "name": "Abdulmalik",
+        "position": "IELTS Instructor",
+        "salary": 4000.0
+    }
+}
