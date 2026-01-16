@@ -86,5 +86,53 @@ chicken.layEgg()
 
 
 
+# ## Build a Bank Application
+import uuid
+
+class Account:
+    accountNumber: str
+    name: str
+    balance: float
+
+    def __init__(self, *,  accountNumber: str, name: str, balance: float):
+        self.accountNumber = accountNumber
+        self.name = name
+        self.balance = balance
+
+    def __str__(self):
+        return f"Account(accountNumber: {self.accountNumber}, name: {self.name}, balance: {self.balance},)"
+
+class Bank:
+    accounts: dict[str, Account]
+
+    def __init__(self, *, accounts: dict[str, Account]):
+        self.accounts = accounts
+
+    
+
+    def createAccount(self, *, name: str, initialDeposit: float):
+        uid = uuid.uuid4()
+
+
+
+    def viewAccount(self, *, accountNumber: str):
+        pass
+
+
+    def deposit(self, *, accountNumber: str, amount: float):
+        pass
+
+
+    def withdraw(self, *, accountNumber: str, amount: float):
+        pass
+
+
+    def save_to_file(self):
+        pass
+
+
+    def load_from_file(self):
+        pass
+
 
 
