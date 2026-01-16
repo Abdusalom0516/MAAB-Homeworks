@@ -100,7 +100,8 @@ class Account:
         self.balance = balance
 
     def __str__(self):
-        return f"Account(accountNumber: {self.accountNumber}, name: {self.name}, balance: {self.balance},)"
+        return f"Account(accountNumber: {self.accountNumber}, name: {self.name}, balance: {format(self.balance, ',')})"
+
 
 class Bank:
     accounts: dict[str, Account]
@@ -108,31 +109,92 @@ class Bank:
     def __init__(self, *, accounts: dict[str, Account]):
         self.accounts = accounts
 
-    
 
     def createAccount(self, *, name: str, initialDeposit: float):
-        uid = uuid.uuid4()
+        uid = str(uuid.uuid4())
+        print(uid)
+        self.accounts[uid] = Account(accountNumber=uid, name=name, balance=initialDeposit)
+        print("\nAccount created succesfully 🎉")
 
+        for elem in self.accounts.values():
+            print(elem)
 
 
     def viewAccount(self, *, accountNumber: str):
-        pass
+        account = self.accounts.get(accountNumber)
+
+        if account == None:
+            print("\nAccount not found!")
+        else:
+            print(account)
 
 
     def deposit(self, *, accountNumber: str, amount: float):
-        pass
+        account = self.accounts.get(accountNumber)
+
+        if account == None:
+            print("\nAccount not found!")
+        else:
+            self.accounts[accountNumber].balance = self.accounts[accountNumber].balance+amount
+            print("\nDeposit done ✅")
 
 
     def withdraw(self, *, accountNumber: str, amount: float):
-        pass
+        account = self.accounts.get(accountNumber)
+
+        if account == None:
+            print("\nAccount not found!")
+        else:
+            availableAmount = account.balance
+
+            if availableAmount >= amount:
+                self.accounts[accountNumber].balance = account.balance-amount
+                print("\Withdraw done ✅")
+            else:
+                print("Not enough amount to withdraw!")
 
 
-    def save_to_file(self):
-        pass
+
+bank = Bank(accounts=dict())
 
 
-    def load_from_file(self):
-        pass
+while True:
+    userOption = input('''
+----------------------------------
+Welcome Employee Record Manager Application!
+# 1. Create account
+# 2. View Account
+# 3. Deposit
+# 4. Withdraw
+# 5. Exit
+# Your option: ''')
 
+    if userOption == "5":
+        break
+    elif userOption == "1":
+        print("\n")
+        accountName = input("Enter account name: ")
+        accountInitialDeposit = float(input("Enter initial deposit: "))
+
+        bank.createAccount(name=accountName, initialDeposit=accountInitialDeposit)
+    elif userOption == "2":
+        print("\n")
+        accountNumber = input("Enter account number: ")
+
+        bank.viewAccount(accountNumber=accountNumber)
+    elif userOption == "3":
+        print("\n")
+        accountNumber = input("Enter account number: ")
+        amount = float(input("Enter amount: "))
+
+        bank.deposit(accountNumber=accountNumber, amount=amount)
+    elif userOption == "4":
+        print("\n")
+        accountNumber = input("Enter account number: ")
+        amount = float(input("Enter amount: "))
+
+        bank.withdraw(accountNumber=accountNumber, amount=amount)
+    else:
+        print("Invalid Option!")
 
 
