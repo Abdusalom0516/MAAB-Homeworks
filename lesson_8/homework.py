@@ -3,14 +3,18 @@
 class Animal:
     name: str
     color: str
-    gender: str
+    __gender: str
     price: float
 
     def __init__(self, *, name: str, color: str, gender: str, price: float):
         self.name = name
         self.color = color
         self.price = price
-        self.gender = gender
+        self.__gender = gender
+
+    @property
+    def gender(self):
+        return self.__gender
 
     def eat(self):
         print(f"{self.__class__.__name__} named {self.name} is eating...")
