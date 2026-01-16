@@ -1,16 +1,16 @@
 # Task 1
 print("--------------- Task 1 ----------------")
 
-# def _convert_cel_to_far(celcious):
-#     return round(celcious * 9/5 + 32, 2)
+def _convert_cel_to_far(celcious):
+    return round(celcious * 9/5 + 32, 2)
 
-# def _convert_far_to_cel(fahrenheit):
-#     return round((fahrenheit - 32) * 5/9, 2)
+def _convert_far_to_cel(fahrenheit):
+    return round((fahrenheit - 32) * 5/9, 2)
 
-# fahrenheit = int(input("Enter a temperature in degrees F: "))
-# print(f"{fahrenheit} degrees F = {_convert_far_to_cel(fahrenheit)} degrees C.")
-# celcious = int(input("Enter a temperature in degrees C: "))
-# print(f"{celcious} degrees C = {_convert_cel_to_far(celcious)} degrees F.")
+fahrenheit = int(input("Enter a temperature in degrees F: "))
+print(f"{fahrenheit} degrees F = {_convert_far_to_cel(fahrenheit)} degrees C.")
+celcious = int(input("Enter a temperature in degrees C: "))
+print(f"{celcious} degrees C = {_convert_cel_to_far(celcious)} degrees F.")
 
 
 # Task 2
