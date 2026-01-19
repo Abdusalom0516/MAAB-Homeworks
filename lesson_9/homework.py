@@ -16,7 +16,7 @@
 # ---
 
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 class BookNotFoundException(Exception):
     pass
@@ -33,19 +33,11 @@ class Book:
     author: str
     is_borrowed: bool
 
-    def __init__(self, *, title: str, author: str, is_borrowed: bool):
-        self.title = title
-        self.author = author
-        self.is_borrowed = is_borrowed
 
 @dataclass
 class Member:
     name: str
-    borrowed_books: list[Book]
-
-    def __init__(self,  name: str, borrowed_books: list[Book]):
-        self.name = name
-        self.borrowed_books = borrowed_books
+    borrowed_books: list[Book] = field(default=[],compare=False)
 
 class Library:
     membersList: list[Member]
@@ -84,7 +76,7 @@ class Library:
                     if self.membersList[i].name == member.name:
                         self.membersList[i].borrowed_books.append(book)
                         break
-        except Exception as e:
+        except (MemberLimitExceededException, BookNotFoundException, BookAlreadyBorrowedException) as e:
             print(e)
 
 
