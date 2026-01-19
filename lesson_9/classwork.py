@@ -8,6 +8,7 @@ try:
 except CustomException as ce:
     print(ce)
 
+print("-------------------------------")
 
 import csv
 
@@ -18,11 +19,13 @@ with open("tasks.csv", "r") as f:
         print(elem)
 
 
-with open("tasks.csv", "w") as f:
-    writer = csv.writer(f)
+# with open("tasks.csv", "w") as f:
+#     writer = csv.writer(f)
 
-    writer.writerow()
+#     writer.writerow()
 
-    
 
+from pkg import User
+
+user = User()
 
