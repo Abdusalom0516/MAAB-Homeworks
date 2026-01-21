@@ -43,6 +43,6 @@ class Notebook:
 
 
     def get_note(self, *, note_id: int) -> Note:
-         for i in range(len(self.notes_list)):
+        for i in range(len(self.notes_list)):
             if self.notes_list[i].id == note_id:
-               return self.notes_list[i]
+                return self.notes_list[i]
