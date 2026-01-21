@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 import os
 from .note import Note
-import json 
+import json
+import csv
 
 class Storage(ABC):
     @abstractmethod
@@ -71,8 +72,24 @@ class CSVFile(Storage):
      def save(self, notesList: list[Note]) -> None:
         print("Saved ✅")
 
+        with open(self.file_name, "w", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=["id", "text", "date_created"])
+            writer.writeheader()
+
+            for note in notesList:
+                writer.writerow(note.to_json())
+
+
      def load(self) -> list[Note]:
-        return [Note(id=1, text= "Read book", date_created="2026-01-11"), Note(id=2, text= "Learn Python", date_created="2026-01-12")]
+        listOfNotes = []
+
+        with open(self.file_name, "r") as f:
+            reader = csv.reader(f)
+
+            for values in reader:
+                listOfNotes.append(Note.from_tuple(values))
+        
+        return listOfNotes
 
      def info(self) -> dict[str, str]:
         return {"file_name": self.file_ame}

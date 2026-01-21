@@ -5,7 +5,7 @@ class ConsoleApp:
     __notebook: Notebook
 
     def __init__(self):
-        self.__notebook = Notebook(storage=JSONFile(file_name="notes.json"))
+        self.__notebook = Notebook(storage=CSVFile(file_name="notes.csv"))
 
     def run(self):
         print("Application running...")
