@@ -12,12 +12,12 @@ class Note:
         return f"Note(id={self.id}, text={self.text}, date_created={self.date_created})"
     
     def to_json(self):
-        return {"id": self.id, "text": self.text, "date_created": self.date_created}
+        return {"id": self.id, "text": self.text, "date_created": self.date_created.isoformat()}
 
 
     @staticmethod
     def from_json(jsonData: dict[str, str]) -> Note:
-        return Note(id=jsonData["id"], text=jsonData["text"], date_created=jsonData["date_created"])
+        return Note(id=jsonData["id"], text=jsonData["text"], date_created=datetime.fromisoformat(jsonData["date_created"]))
 
     @staticmethod
     def from_tuple(tupleData: tuple) -> Note:

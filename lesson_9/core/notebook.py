@@ -16,7 +16,7 @@ class Notebook:
     def add_note(self, note: Note) -> None:
         self.notes_list.append(note)
 
-        self.__storage.save()
+        self.__storage.save(notesList=self.notes_list)
 
 
     def update_note(self, *, new_note: Note) -> None:
@@ -25,7 +25,7 @@ class Notebook:
                 self.notes_list[i] = new_note
                 break
 
-        self.__storage.save()
+        self.__storage.save(notesList=self.notes_list)
 
 
     def delete_note(self, *, note_id: int) -> None:
@@ -35,7 +35,7 @@ class Notebook:
                 self.notes_list.pop(i)
                 break
 
-        self.__storage.save()
+        self.__storage.save(notesList=self.notes_list)
 
 
     def get_notes(self) -> list[Note]:

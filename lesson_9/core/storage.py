@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import os
 from .note import Note
 import json 
 
@@ -38,6 +39,9 @@ class JSONFile(Storage):
 
      def load(self) -> list[Note]:
         list_of_notes = []
+
+        if not os.path.exists(self.file_name):
+            return list_of_notes
 
         with open(self.file_name, "r") as f:
             json_value = json.load(f)
