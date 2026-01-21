@@ -7,8 +7,9 @@ from .storage import Storage
 
 class Notebook:
     notes_list: list[Note]
+    __storage: Storage
 
-    def __init__(self, storage: Storage ):
+    def __init__(self, storage: Storage):
         self.__storage = storage
         self.notes_list = self.__storage.load()
 
