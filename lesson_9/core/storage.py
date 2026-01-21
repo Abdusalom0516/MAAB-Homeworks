@@ -27,7 +27,7 @@ class JSONFile(Storage):
 
 
      def save(self, notesList: list[Note]) -> None:
-        print(f"{len(notesList)} notes saved into file {self.file_name}.")
+        print("Saved ✅")
         listOfJSONNotes: list[dict[str, str]] = []
 
         for note in notesList:
@@ -41,6 +41,9 @@ class JSONFile(Storage):
         list_of_notes = []
 
         if not os.path.exists(self.file_name):
+            return list_of_notes
+        
+        if os.path.getsize(self.file_name) == 0:
             return list_of_notes
 
         with open(self.file_name, "r") as f:
@@ -66,7 +69,7 @@ class CSVFile(Storage):
 
 
      def save(self, notesList: list[Note]) -> None:
-        print(f"{len(notesList)} notes saved into file {self.file_name}.")
+        print("Saved ✅")
 
      def load(self) -> list[Note]:
         return [Note(id=1, text= "Read book", date_created="2026-01-11"), Note(id=2, text= "Learn Python", date_created="2026-01-12")]

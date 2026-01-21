@@ -10,7 +10,7 @@ class Note:
 
     def __str__(self):
         return f"Note(id={self.id}, text={self.text}, date_created={self.date_created})"
-    
+
     def to_json(self):
         return {"id": self.id, "text": self.text, "date_created": self.date_created.isoformat()}
 
