@@ -13,24 +13,36 @@ class Notebook:
         self.__storage = storage
         self.notes_list = self.__storage.load()
 
-    @classmethod
-    def add_note(cls, note: Note) -> None:
-        pass
+    def add_note(self, note: Note) -> None:
+        self.notes_list.append(note)
 
-    @classmethod
-    def update_note(cls, *, new_note: Note) -> None:
-        pass
+        self.__storage.save()
 
-    @classmethod
-    def delete_note(cls, *, note_id: int) -> None:
-        pass
 
-    @classmethod
-    def get_notes(cls) -> list[Note]:
-        # NOTE: Dummy Implementation
-        return [Note(id=999, text="Damn man...", date_created=datetime.now()), Note(id=777, text="Fuck that...", date_created=datetime.now())]
+    def update_note(self, *, new_note: Note) -> None:
+        for i in range(len(self.notes_list)):
+            if self.notes_list[i].id == new_note.id:
+                self.notes_list[i] = new_note
+                break
 
-    @classmethod
-    def get_note(cls, *, note_id: int) -> Note:
-        # NOTE: Dummy Implementation
-        return Note(id=999, text="Damn man...", date_created=datetime.now())
+        self.__storage.save()
+
+
+    def delete_note(self, *, note_id: int) -> None:
+
+        for i in range(len(self.notes_list)):
+            if self.notes_list[i].id == note_id:
+                self.notes_list.pop(i)
+                break
+
+        self.__storage.save()
+
+
+    def get_notes(self) -> list[Note]:
+        return self.notes_list
+
+
+    def get_note(self, *, note_id: int) -> Note:
+         for i in range(len(self.notes_list)):
+            if self.notes_list[i].id == note_id:
+               return self.notes_list[i]
