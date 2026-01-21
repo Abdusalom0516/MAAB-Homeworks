@@ -1,6 +1,6 @@
+from __future__ import annotations
 from typing import Union # helps to accept multiple types of value. Or we can write date_created | str
 from datetime import datetime
-from __future__ import annotations
 
 class Note:
     def __init__(self, *, id: int, text: str, date_created: Union[datetime, str]):

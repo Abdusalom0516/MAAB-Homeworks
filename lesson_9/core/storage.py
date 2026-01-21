@@ -32,7 +32,7 @@ class JSONFile(Storage):
 
      def info(self) -> dict[str, str]:
         return {"file_name": self.file_ame}
-     
+
 
 
 class CSVFile(Storage):

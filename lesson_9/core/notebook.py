@@ -1,5 +1,9 @@
+from __future__ import annotations
+from datetime import datetime
+
 from .note import Note
 from .storage import Storage
+
 
 class Notebook:
     notes_list: list[Note]
@@ -13,17 +17,19 @@ class Notebook:
         pass
 
     @classmethod
-    def update_note(cls) -> None:
+    def update_note(cls, *, new_note: Note) -> None:
         pass
 
     @classmethod
-    def remove_note(cls) -> None:
+    def delete_note(cls, *, note_id: int) -> None:
         pass
 
     @classmethod
     def get_notes(cls) -> list[Note]:
-        pass
+        # NOTE: Dummy Implementation
+        return [Note(id=999, text="Damn man...", date_created=datetime.now()), Note(id=777, text="Fuck that...", date_created=datetime.now())]
 
     @classmethod
-    def get_note(cls) -> Note:
-        pass
+    def get_note(cls, *, note_id: int) -> Note:
+        # NOTE: Dummy Implementation
+        return Note(id=999, text="Damn man...", date_created=datetime.now())
