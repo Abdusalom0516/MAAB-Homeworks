@@ -6,21 +6,21 @@ class Notebook:
         self.notesList = notesList
 
     @classmethod
-    def addNote(cls, note: Note) -> None:
+    def add_note(cls, note: Note) -> None:
         pass
 
     @classmethod
-    def updateNote(cls) -> None:
+    def update_note(cls) -> None:
         pass
 
     @classmethod
-    def removeNote(cls) -> None:
+    def remove_note(cls) -> None:
         pass
 
     @classmethod
-    def getNotes(cls) -> list[Note]:
+    def get_notes(cls) -> list[Note]:
         pass
 
     @classmethod
-    def getNote(cls) -> Note:
+    def get_note(cls) -> Note:
         pass

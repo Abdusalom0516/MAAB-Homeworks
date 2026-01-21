@@ -12,9 +12,9 @@ class Note:
         return f"Note(id={self.id}, text={self.text}, date_created={self.date_created})"
 
     @staticmethod
-    def fromJson(jsonData: dict[str, str]) -> Note:
+    def from_json(jsonData: dict[str, str]) -> Note:
         return Note(id=jsonData["id"], text=jsonData["text"], date_created=jsonData["date_created"])
 
     @staticmethod
-    def fromTuple(tupleData: tuple) -> Note:
+    def from_tuple(tupleData: tuple) -> Note:
         return Note(id=tupleData[0], text=tupleData[1], date_created=tupleData[2])
