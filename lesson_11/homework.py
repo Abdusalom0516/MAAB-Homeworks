@@ -59,6 +59,23 @@ print("Average Temperature of the Week")
 print(f"{sum(temperatures) / len(temperatures)}°C")
 
 
+# Task 2
+print("------------------------------")
+
+import sqlite3
+import requests
+from bs4 import BeautifulSoup
+
+value = requests.get("https://realpython.github.io/fake-jobs/")
+
+soup = BeautifulSoup(value.text, "html.parser")
+
+card_contents = soup.find_all("div", class_="card-content")
+
+print(card_contents)
+
+
+
 
 
 # Task 3
