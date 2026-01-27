@@ -1,19 +1,4 @@
 # Task 1
-# 1. **Parse the HTML File**:
-#    - Load the `weather.html` file using BeautifulSoup and extract the weather forecast details.
-
-# 2. **Display Weather Data**:
-#    - Print the **day**, **temperature**, and **condition** for each entry in the forecast.
-
-# 3. **Find Specific Data**:
-#    - Identify and print the day(s) with:
-#      - The highest temperature.
-#      - The "Sunny" condition.
-
-# 4. **Calculate Average Temperature**:
-#    - Compute and print the **average temperature** for the week.
-
-
 from bs4 import BeautifulSoup
 
 html_code = ""
@@ -65,6 +50,7 @@ print("------------------------------")
 import sqlite3
 import requests
 from bs4 import BeautifulSoup
+import sqlite3
 
 value = requests.get("https://realpython.github.io/fake-jobs/")
 
@@ -72,7 +58,48 @@ soup = BeautifulSoup(value.text, "html.parser")
 
 card_contents = soup.find_all("div", class_="card-content")
 
-print(card_contents)
+jobs = []
+for elem in card_contents:
+    media_content = elem.find("div", class_="media-content")
+    content = elem.find("div", class_="content")
+    all_links = elem.find_all("a")
+    job_title = media_content.find("h2").text
+    company_name = media_content.find("h3", class_="subtitle").text
+    location = str(content.find("p", class_="location").text).strip()
+    application = all_links[1].get("href")
+    jobs.append((job_title, company_name, location, application))
+
+    with sqlite3.connect("jobs.db") as connect:
+        cursor = connect.cursor()
+
+        create_table_query = "CREATE TABLE IF NOT EXISTS jobs(job_title TEXT, company_name TEXT, location TEXT, application_link TEXT, UNIQUE(job_title, company_name, location))"
+        cursor.execute(create_table_query)
+
+        values_question_mark = ", ".join(["?"] * 4)
+        insert_values_query = f"""
+            INSERT INTO jobs VALUES ({values_question_mark})
+            ON CONFLICT(job_title, company_name, location)
+            DO UPDATE SET application_link = excluded.application_link;
+        """
+        cursor.executemany(insert_values_query, jobs)
+
+
+def get_jobs_by_location(location: str):
+    with sqlite3.connect("jobs.db") as connect:
+        cursor = connect.cursor()
+
+        jobs_by_locations_query = f"SELECT * FROM jobs WHERE location = {location}"
+        data = cursor.execute(jobs_by_locations_query).fetchall()
+        print(data)
+
+
+def get_jobs_by_company_name(company_name: str):
+    with sqlite3.connect("jobs.db") as connect:
+        cursor = connect.cursor()
+
+        jobs_by_company_name_query = f"SELECT * FROM jobs WHERE company_name = {company_name}"
+        data = cursor.execute(jobs_by_company_name_query).fetchall()
+        print(data)
 
 
 
@@ -81,30 +108,6 @@ print(card_contents)
 # Task 3
 import json
 print("------------------------------")
-#  1. **Navigate to the Website:**
-#    - Visit the [Demoblaze homepage](https://www.demoblaze.com/).
-#    - Click on the **Laptops** section to view the list of available laptops.
-
-# 2. **Navigate to the Next Page:**
-#    - After reaching the Laptops section, locate and click the **Next** button to navigate to the next page of laptop listings.
-
-# 3. **Data to Scrape:**
-#    For each laptop on the page, scrape the following details:
-#    - **Laptop Name**
-#    - **Price**
-#    - **Description**
-
-# 4. **Data Storage:**
-#    - Save the extracted information in a structured **JSON format** with fields like:
-#      json
-#      [
-#        {
-#          "name": "Laptop Name",
-#          "price": "Laptop Price",
-#          "description": "Laptop Description"
-#        },
-#        ...
-#      ]
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
