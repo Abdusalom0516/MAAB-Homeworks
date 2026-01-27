@@ -1,11 +1,5 @@
 # ### Task 1
 
-# | Name           | Rank       |
-# |----------------|------------|
-# | Benjamin Sisko | Captain    |
-# | Ezri Dax       | Lieutenant |
-# | Kira Nerys     | Major      |
-
 import sqlite3
 
 with sqlite3.connect("roster.db") as connect:
@@ -49,36 +43,7 @@ with sqlite3.connect("roster.db") as connect:
 
 
 
-
-
-
 # ### Task 2
-
-# 1. **Database Creation**:
-#    - Create a new SQLite database named `library.db`.
-#    - Define a table called **Books** with the following schema:
-#      - **Title**: TEXT
-#      - **Author**: TEXT
-#      - **Year_Published**: INTEGER
-#      - **Genre**: TEXT
-
-# 2. **Insert Data**:
-#    - Populate the **Books** table with the following entries:
-
-# | Title                  | Author          | Year_Published | Genre      |
-# |------------------------|-----------------|----------------|------------|
-# | To Kill a Mockingbird  | Harper Lee      | 1960           | Fiction    |
-# | 1984                   | George Orwell   | 1949           | Dystopian  |
-# | The Great Gatsby       | F. Scott Fitzgerald | 1925        | Classic    |
-
-# 3. **Update Data**:
-#    - Update the `Year_Published` of **1984** to **1950**.
-
-# 4. **Query Data**:
-#    - Retrieve and display the **Title** and **Author** of all books where the `Genre` is **Dystopian**.
-
-# 5. **Delete Data**:
-#    - Remove all books published before the year 1950 from the table.
 
 # 6. **Bonus Task**:
 #    - Add a new column called `Rating` to the **Books** table and update the data with the following values:
@@ -89,7 +54,45 @@ with sqlite3.connect("roster.db") as connect:
 # | 1984                   | 4.7    |
 # | The Great Gatsby       | 4.5    |
 
-# 7. **Advanced Query**:
-#    - Retrieve all books sorted by their `Year_Published` in ascending order.
 
-# ---
+with sqlite3.connect("library.db") as connect:
+    cursor = connect.cursor()
+
+    delete_table_query = "DROP TABLE IF EXISTS Books"
+    cursor.execute(delete_table_query)
+
+    create_table_query = "CREATE TABLE Books(Title TEXT, Author TEXT, Year_Published int, Genre TEXT)"
+    cursor.execute(create_table_query)
+
+    columns_with_question_mark = ", ".join(["?"] * 4)
+    insert_values_query = f"INSERT INTO Books Values({columns_with_question_mark})"
+    cursor.executemany(insert_values_query, [("To Kill a Mockingbird", "Harper Lee", 1960, "Fiction"), ("1984", "George Orwell", 1949, "Dystopian"), ("The Great Gatsby", "F. Scott Fitzgerald", 1925, "Classic")])
+
+    update_year_query = "UPDATE Books SET Year_Published = 1950 WHERE Title = 1984"
+    cursor.execute(update_year_query)
+
+    filter_by_genre_query = "SELECT* FROM Books WHERE Genre = 'Dystopian'"
+    data = cursor.execute(filter_by_genre_query).fetchall()
+    print(data)
+
+    delete_books_query = "DELETE FROM Books WHERE Year_Published < 1950"
+    cursor.execute(delete_books_query)
+
+    alter_table_query = "ALTER TABLE Books ADD COLUMN Rating DECIMAL"
+    cursor.execute(alter_table_query)
+
+    update_rating_values_query = """
+        UPDATE Books SET Rating = 4.8 WHERE Title = 'To Kill a Mockingbird';
+        UPDATE Books SET Rating = 4.7 WHERE Title = '1984';
+        UPDATE Books SET Rating = 4.5 WHERE Title = 'The Great Gatsby';
+    """
+    cursor.executescript(update_rating_values_query)
+
+    sorted_by_year_query = "SELECT * FROM Books ORDER BY Year_Published"
+    data = cursor.execute(sorted_by_year_query).fetchall()
+    print(data)
+
+
+
+
+
