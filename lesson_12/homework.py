@@ -1,12 +1,5 @@
 # ### Task 1
 
-# 1. **Database Creation**:
-#    - Create a new SQLite database named `roster.db`.
-#    - Define a table called **Roster** with the following schema:
-#      - **Name**: TEXT
-#      - **Species**: TEXT
-#      - **Age**: INTEGER
-
 # 2. **Insert Data**:
 #    - Populate the **Roster** table with the following entries:
 
@@ -27,7 +20,7 @@
 
 # 6. **Bonus Task**:
 #    - Add a new column called `Rank` to the **Roster** table and update the data with the following values:
-   
+
 # | Name           | Rank       |
 # |----------------|------------|
 # | Benjamin Sisko | Captain    |
@@ -41,9 +34,15 @@ import sqlite3
 with sqlite3.connect("roster.db") as connect:
     cursor = connect.cursor()
 
-    create_table_query = "CREATE TABLE Roster(Name TEXT, Species TEXT, Age int)"
-
+    create_table_query = "CREATE TABLE IF NOT EXISTS Roster(Name TEXT, Species TEXT, Age int)"
     cursor.execute(create_table_query)
+
+    columns_with_question_mark = ", ".join(["?"] * 3)
+
+    insert_table_query = f"INSERT INTO Roster VALUES ({columns_with_question_mark})"
+    cursor.executemany(insert_table_query,[("Benjamin Sisko", "Human", 40), ("Jadzia Dax", "Trill", 300), ("Kira Nerys", "Bajoran", 39) ])
+
+
 
 
 
