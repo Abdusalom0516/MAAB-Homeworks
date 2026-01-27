@@ -1,14 +1,5 @@
 # ### Task 1
 
-# 2. **Insert Data**:
-#    - Populate the **Roster** table with the following entries:
-
-# | Name           | Species  | Age |
-# |----------------|----------|-----|
-# | Benjamin Sisko | Human    | 40  |
-# | Jadzia Dax     | Trill    | 300 |
-# | Kira Nerys     | Bajoran  | 29  |
-
 # 3. **Update Data**:
 #    - Update the `Name` of **Jadzia Dax** to **Ezri Dax**.
 
@@ -41,6 +32,9 @@ with sqlite3.connect("roster.db") as connect:
 
     insert_table_query = f"INSERT INTO Roster VALUES ({columns_with_question_mark})"
     cursor.executemany(insert_table_query,[("Benjamin Sisko", "Human", 40), ("Jadzia Dax", "Trill", 300), ("Kira Nerys", "Bajoran", 39) ])
+
+    update_name_query  = "UPDATE Roster SET Name = 'Ezri Dax' WHERE Name = 'Jadzia Dax'"
+    cursor.execute(update_name_query)
 
 
 
