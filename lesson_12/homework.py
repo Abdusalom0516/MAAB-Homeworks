@@ -45,16 +45,6 @@ with sqlite3.connect("roster.db") as connect:
 
 # ### Task 2
 
-# 6. **Bonus Task**:
-#    - Add a new column called `Rating` to the **Books** table and update the data with the following values:
-
-# | Title                  | Rating |
-# |------------------------|--------|
-# | To Kill a Mockingbird  | 4.8    |
-# | 1984                   | 4.7    |
-# | The Great Gatsby       | 4.5    |
-
-
 with sqlite3.connect("library.db") as connect:
     cursor = connect.cursor()
 
