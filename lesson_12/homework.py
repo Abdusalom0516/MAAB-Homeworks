@@ -1,7 +1,5 @@
 # ### Task 1
 
-# 3. **Update Data**:
-#    - Update the `Name` of **Jadzia Dax** to **Ezri Dax**.
 
 # 4. **Query Data**:
 #    - Retrieve and display the **Name** and **Age** of all characters where the `Species` is **Bajoran**.
@@ -35,6 +33,10 @@ with sqlite3.connect("roster.db") as connect:
 
     update_name_query  = "UPDATE Roster SET Name = 'Ezri Dax' WHERE Name = 'Jadzia Dax'"
     cursor.execute(update_name_query)
+
+    display_name_and_age_query = "SELECT Name, Age FROM Roster WHERE Species = 'Bajoran'"
+    data = cursor.execute(display_name_and_age_query)
+    print(data.fetchone())
 
 
 
