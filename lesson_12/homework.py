@@ -1,9 +1,5 @@
 # ### Task 1
 
-
-# 4. **Query Data**:
-#    - Retrieve and display the **Name** and **Age** of all characters where the `Species` is **Bajoran**.
-
 # 5. **Delete Data**:
 #    - Remove all characters aged over 100 years from the table.
 
@@ -37,6 +33,9 @@ with sqlite3.connect("roster.db") as connect:
     display_name_and_age_query = "SELECT Name, Age FROM Roster WHERE Species = 'Bajoran'"
     data = cursor.execute(display_name_and_age_query)
     print(data.fetchone())
+
+    delete_age_over100_query = "DELETE FROM Roster WHERE Age > 100"
+    cursor.execute(delete_age_over100_query)
 
 
 
