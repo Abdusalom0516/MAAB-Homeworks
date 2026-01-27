@@ -1,25 +1,20 @@
 # ### Task 1
 
-# 5. **Delete Data**:
-#    - Remove all characters aged over 100 years from the table.
-
-# 6. **Bonus Task**:
-#    - Add a new column called `Rank` to the **Roster** table and update the data with the following values:
-
 # | Name           | Rank       |
 # |----------------|------------|
 # | Benjamin Sisko | Captain    |
 # | Ezri Dax       | Lieutenant |
 # | Kira Nerys     | Major      |
 
-# 7. **Advanced Query**:
-#    - Retrieve all characters sorted by their `Age` in descending order.
 import sqlite3
 
 with sqlite3.connect("roster.db") as connect:
     cursor = connect.cursor()
 
-    create_table_query = "CREATE TABLE IF NOT EXISTS Roster(Name TEXT, Species TEXT, Age int)"
+    drop_table_query = "DROP TABLE IF EXISTS Roster"
+    cursor.execute(drop_table_query)
+
+    create_table_query = "CREATE TABLE Roster(Name TEXT, Species TEXT, Age int)"
     cursor.execute(create_table_query)
 
     columns_with_question_mark = ", ".join(["?"] * 3)
@@ -31,11 +26,26 @@ with sqlite3.connect("roster.db") as connect:
     cursor.execute(update_name_query)
 
     display_name_and_age_query = "SELECT Name, Age FROM Roster WHERE Species = 'Bajoran'"
-    data = cursor.execute(display_name_and_age_query)
-    print(data.fetchone())
+    data = cursor.execute(display_name_and_age_query).fetchall()
+    print(data)
 
     delete_age_over100_query = "DELETE FROM Roster WHERE Age > 100"
     cursor.execute(delete_age_over100_query)
+
+    alter_table_query = "ALTER TABLE Roster ADD COLUMN Rank TEXT"
+    cursor.execute(alter_table_query)
+
+    update_rank_values_query ="""
+        UPDATE Roster SET Rank = 'Captain' WHERE Name = 'Benjamin Sisko';
+        UPDATE Roster SET Rank = 'Lieutenant' WHERE Name = 'Ezri Dax';
+        UPDATE Roster SET Rank = 'Major' WHERE Name = 'Kira Nerys';
+    """
+    cursor.executescript(update_rank_values_query)
+
+    sorted_order_query = "SELECT * FROM ROSTER ORDER BY Age DESC"
+    data = cursor.execute(sorted_order_query).fetchall()
+
+    print(data)
 
 
 
