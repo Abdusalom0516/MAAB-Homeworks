@@ -1,5 +1,4 @@
-# 1. Create a vector with values ranging from 10 to 49.
-# 2. Create a 3x3 matrix with values ranging from 0 to 8.
+
 # 3. Create a 3x3 identity matrix.
 # 4. Create a 3x3x3 array with random values.
 # 5. Create a 10x10 array with random values and find the minimum and maximum values.
@@ -19,3 +18,13 @@ import numpy
 # Task 1
 vector = numpy.arange(10, 50)
 print(vector)
+
+
+# Task 2
+matrix = numpy.arange(9).reshape((3, 3))
+print(matrix)
+
+
+# Task 3
+matrix = numpy.eye(3, 3)
+print(matrix)
