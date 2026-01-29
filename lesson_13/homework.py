@@ -1,9 +1,4 @@
 
-# 9. Create two 3x3 matrices and compute their dot product.  
-# 10. Given a 4x4 matrix, find its transpose.  
-# 11. Create a 3x3 matrix and calculate its determinant.  
-# 12. Create two matrices \( A \) (3x4) and \( B \) (4x3), and compute the matrix product \( A \cdot B \).  
-# 13. Create a 3x3 random matrix and a 3-element column vector. Compute the matrix-vector product.  
 # 14. Solve the linear system \( Ax = b \) where \( A \) is a 3x3 matrix, and \( b \) is a 3x1 column vector.  
 # 15. Given a 5x5 matrix, find the row-wise and column-wise sums.
 
@@ -71,4 +66,42 @@ matrix_result = numpy.dot(matrix1, matrix2)
 print(matrix_result)
 
 
-# Task 9
+# Task 10
+matrix = numpy.random.randint(1, 10, (4, 4))
+transposed_matrix = matrix.transpose()
+print(matrix)
+print(transposed_matrix)
+
+
+# Task 11
+matrix = numpy.random.randint(1, 10, (3, 3))
+determinant = numpy.linalg.det(matrix)
+
+print(matrix)
+print(determinant)
+
+
+# Task 12
+matrix1 = numpy.random.randint(1, 10, (3, 4))
+matrix2 = numpy.random.randint(1, 10, (4, 3))
+
+matrix_result = matrix1 @ matrix2
+
+
+# Task 13
+matrix1 = numpy.random.randint(1, 10, (3, 3))
+vector = numpy.array([3, 7, 9])
+
+matrix_result = matrix1 * vector
+print(matrix_result)
+
+
+# Task 15
+matrix = numpy.random.randint(1, 10, (5, 5))
+row_wise_sum = matrix.sum(axis=0)
+column_wise_sum = matrix.sum(axis=1)
+
+print(matrix)
+print(row_wise_sum)
+print(column_wise_sum)
+
