@@ -1,7 +1,4 @@
 
-# 3. Create a 3x3 identity matrix.
-# 4. Create a 3x3x3 array with random values.
-# 5. Create a 10x10 array with random values and find the minimum and maximum values.
 # 6. Create a random vector of size 30 and find the mean value.
 # 7. Normalize a 5x5 random matrix.
 # 8. Multiply a 5x3 matrix by a 3x2 matrix (real matrix product).
@@ -28,3 +25,17 @@ print(matrix)
 # Task 3
 matrix = numpy.eye(3, 3)
 print(matrix)
+
+
+# Task 4
+matrix = numpy.random.randint(1, 100, (3, 3, 3))
+print(matrix)
+
+
+# Task 5
+matrix = numpy.random.randint(1, 100, (10, 10))
+max_number = matrix.max()
+min_number = matrix.min()
+print(matrix)
+print(max_number)
+print(min_number)
