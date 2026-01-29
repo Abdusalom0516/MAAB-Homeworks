@@ -1,7 +1,4 @@
 
-# 6. Create a random vector of size 30 and find the mean value.
-# 7. Normalize a 5x5 random matrix.
-# 8. Multiply a 5x3 matrix by a 3x2 matrix (real matrix product).
 # 9. Create two 3x3 matrices and compute their dot product.  
 # 10. Given a 4x4 matrix, find its transpose.  
 # 11. Create a 3x3 matrix and calculate its determinant.  
@@ -39,3 +36,39 @@ min_number = matrix.min()
 print(matrix)
 print(max_number)
 print(min_number)
+
+
+# Task 6
+matrix = numpy.random.randint(1, 100, 30)
+mean_value = round(matrix.sum() / matrix.size, 2)
+print(matrix)
+print(mean_value)
+
+
+# Task 7
+matrix = numpy.random.randint(1, 100, (5, 5))
+norm = numpy.linalg.norm(matrix)
+normalized_matrix = matrix / norm
+print(matrix)
+print(normalized_matrix)
+
+
+# Task 8
+matrix1 = numpy.random.randint(1, 10, (5, 3))
+matrix2 = numpy.random.randint(1, 10, (3, 2))
+
+new_matrix = matrix1 @ matrix2
+print(matrix1)
+print(matrix2)
+print(new_matrix)
+
+
+# Task 9
+matrix1 = numpy.random.randint(1, 10, (3, 3))
+matrix2 = numpy.random.randint(1, 10, (3, 3))
+
+matrix_result = numpy.dot(matrix1, matrix2)
+print(matrix_result)
+
+
+# Task 9
