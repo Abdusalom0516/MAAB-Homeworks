@@ -1,7 +1,3 @@
-
-# 14. Solve the linear system \( Ax = b \) where \( A \) is a 3x3 matrix, and \( b \) is a 3x1 column vector.  
-# 15. Given a 5x5 matrix, find the row-wise and column-wise sums.
-
 import numpy
 
 # Task 1
