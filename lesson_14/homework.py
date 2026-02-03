@@ -76,6 +76,16 @@ print(result)
 
 from PIL import Image
 
+# 1.
+with Image.open("images/bird.jpg") as img:
+    array = np.array(img)
+    array = np.flip(array, axis=1) # Left - Right
+    array = np.flip(array, axis=0) # Up - Down
+
+    flipped_img = Image.fromarray(array)
+    flipped_img.save("images/flipped_img.jpg")
+
+
 # 3.
 with Image.open("images/bird.jpg") as img:
     array = np.array(img).astype(np.int16)
@@ -83,14 +93,6 @@ with Image.open("images/bird.jpg") as img:
 
     brightened_img = Image.fromarray(array.astype(np.uint8))
     brightened_img.save("images/brightened_img.jpg")
-
-
-
-
-
-
-
-
 
 
 # 4.
