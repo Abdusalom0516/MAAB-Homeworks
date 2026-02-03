@@ -85,7 +85,6 @@ with Image.open("images/bird.jpg") as img:
     flipped_img = Image.fromarray(array)
     flipped_img.save("images/flipped_img.jpg")
 
-
 # 3.
 with Image.open("images/bird.jpg") as img:
     array = np.array(img).astype(np.int16)
