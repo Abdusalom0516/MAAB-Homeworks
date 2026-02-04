@@ -101,19 +101,19 @@ import numpy as np
 # over the range of $ x $ and $ y $ values from -5 to 5. Use a suitable colormap and add a colorbar.
 # Set appropriate labels for the axes and title.
 
-fig = plt.figure()
-ax = plt.axes(projection="3d")
+# fig = plt.figure()
+# ax = plt.axes(projection="3d")
 
-x = np.linspace(-5, 5, 100)
-y = np.linspace(-5, 5, 100)
-X, Y = np.meshgrid(x, y)
-Z = np.cos(X**2 + Y**2)
+# x = np.linspace(-5, 5, 100)
+# y = np.linspace(-5, 5, 100)
+# X, Y = np.meshgrid(x, y)
+# Z = np.cos(X**2 + Y**2)
 
-surf = ax.plot_surface(X, Y, Z, cmap="gist_rainbow")
-fig.colorbar(surf, shrink=0.7,  aspect=11)
-plt.tight_layout()
+# surf = ax.plot_surface(X, Y, Z, cmap="gist_rainbow")
+# fig.colorbar(surf, shrink=0.7,  aspect=11)
+# plt.tight_layout()
 
-plt.show()
+# plt.show()
 
 
 # #### **7. Bar Chart**
@@ -123,7 +123,14 @@ plt.show()
 # Customize the chart with a title, axis labels, and different bar colors.
 
 categories = ['Product A', 'Product B', 'Product C', 'Product D', 'Product E']
-sales = [200, 150, 250, 175, 225]
+sales = np.array([200, 150, 250, 175, 225])
+colors = ["blue", "red", "green", "purple", "brown"]
+
+plt.bar(categories, sales, width=0.6, color=colors)
+plt.title("Sales Chart")
+plt.xlabel("Categories")
+plt.ylabel("Sales")
+plt.show()
 
 
 
