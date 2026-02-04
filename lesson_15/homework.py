@@ -46,19 +46,19 @@ bottom_right = np.log(array+1)
 
 plt.subplot(2, 2, 1)
 plt.plot(top_left, color="g")
-plt.title("Top-left")
+plt.title("$ f(x) = x^3 $")
 
 plt.subplot(2, 2, 2)
 plt.plot(top_right,  color="r")
-plt.title("Top-right")
+plt.title("$ f(x) = \sin(x) $")
 
 plt.subplot(2, 2, 3)
 plt.plot(bottom_left,  color="blue")
-plt.title("Bottom-left")
+plt.title("$ f(x) = e^x $")
 
 plt.subplot(2, 2, 4)
 plt.plot(bottom_right,  color="purple")
-plt.title("Bottom-right")
+plt.title("$ f(x) = \log(x+1) $ (for $ x \geq 0 $")
 
 plt.tight_layout()
 plt.show()
