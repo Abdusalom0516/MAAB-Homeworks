@@ -1,22 +1,3 @@
 
-# **Instructions:**
-
-# 1. **Flip the Image**:
-#    - Flip the image horizontally and vertically (left-to-right and up-to-down).
-
-# 2. **Add Random Noise**:
-#    - Add random noise to the image.
-
-
-# **Requirements:**
-# - Use the **PIL** module onyl to:
-#   - Read the image.
-#   - Convert numpy array to image.
-#   - Save the modified image back to a file.
-# - Perform all manipulations using NumPy functions. Avoid using image editing functions from PIL or other libraries.
-
-
-# **Bonus Challenge**:
-# - Create a function for each manipulation (e.g., `flip_image`, `add_noise`, `brighten_channels`, `apply_mask`) to promote modularity and reusability of code.
-
-# ---
+# #### **8. Stacked Bar Chart**
+# - **Task**: Create a stacked bar chart that shows the contribution of three different categories (`'Category A'`, `'Category B'`, and `'Category C'`) over four time periods (`'T1'`, `'T2'`, `'T3'`, `'T4'`). Use sample data for each category at each time period. Customize the chart with a title, axis labels, and a legend.
