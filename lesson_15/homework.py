@@ -80,4 +80,21 @@ import numpy as np
 # plt.show()
 
 
+# #### **5. Histogram**
+# - **Task**: Generate a random dataset of 1000 values sampled from a normal distribution (mean=0, std=1).
+# Plot a histogram of the data with 30 bins. Add a title and axis labels.
+# Adjust the transparency of the bars using the `alpha` parameter.
+
+
+# array = np.random.normal(0, 1, 1000)
+# print(array)
+
+# plt.hist(array, edgecolor= "w", color="purple", bins=30, alpha=0.5)
+# plt.xlabel("x")
+# plt.ylabel("y")
+
+# plt.show()
+
+
+
 
