@@ -35,32 +35,49 @@ import numpy as np
 #   - Bottom-left: $ f(x) = e^x $
 #   - Bottom-right: $ f(x) = \log(x+1) $ (for $ x \geq 0 $)
 
-#   Customize each plot with titles, axis labels, and different colors.
+# array = np.linspace(-10, 10, 100)
+# top_left = array ** 3
+# top_right = np.sin(array)
+# bottom_left = np.e ** array
+# array = array[array >= 0]
+# bottom_right = np.log(array+1)
 
-array = np.linspace(-10, 10, 100)
-top_left = array ** 3
-top_right = np.sin(array)
-bottom_left = np.e ** array
-array = array[array >= 0]
-bottom_right = np.log(array+1)
+# plt.subplot(2, 2, 1)
+# plt.plot(top_left, color="g")
+# plt.title("$ f(x) = x^3 $")
 
-plt.subplot(2, 2, 1)
-plt.plot(top_left, color="g")
-plt.title("$ f(x) = x^3 $")
+# plt.subplot(2, 2, 2)
+# plt.plot(top_right,  color="r")
+# plt.title("$ f(x) = \sin(x) $")
 
-plt.subplot(2, 2, 2)
-plt.plot(top_right,  color="r")
-plt.title("$ f(x) = \sin(x) $")
+# plt.subplot(2, 2, 3)
+# plt.plot(bottom_left,  color="blue")
+# plt.title("$ f(x) = e^x $")
 
-plt.subplot(2, 2, 3)
-plt.plot(bottom_left,  color="blue")
-plt.title("$ f(x) = e^x $")
+# plt.subplot(2, 2, 4)
+# plt.plot(bottom_right,  color="purple")
+# plt.title("$ f(x) = \log(x+1) $ (for $ x \geq 0 $")
 
-plt.subplot(2, 2, 4)
-plt.plot(bottom_right,  color="purple")
-plt.title("$ f(x) = \log(x+1) $ (for $ x \geq 0 $")
+# plt.tight_layout()
+# plt.show()
 
-plt.tight_layout()
-plt.show()
+
+# #### **4. Scatter Plot**
+# - **Task**: Create a scatter plot of 100 random points in a 2D space.
+# The x and y values should be randomly generated from a uniform distribution between 0 and 10.
+# Use different colors and markers for the points. Add a title, axis labels, and a grid.
+
+# x = np.random.randint(0, 11, 100)
+# y = np.random.randint(0, 11, 100)
+
+# plt.scatter(x, y, c=y,cmap="plasma")
+# plt.title("Scatter Plot")
+# plt.xlabel("x")
+# plt.ylabel("y")
+# plt.grid(visible=0.5)
+# plt.colorbar()
+
+# plt.show()
+
 
 
