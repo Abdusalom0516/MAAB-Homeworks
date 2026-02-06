@@ -1,20 +1,21 @@
 # ### Homework: Pandas Basics
 
-# #### Part 1: Reading Files  
-# 1. **`chinook.db`**  
-#    - Use the `sqlite3` library to connect to the database.  
+# #### Part 1: Reading Files
+# 1. **`chinook.db`**
+#    - Use the `sqlite3` library to connect to the database.
 #    - Read the `customers` table into a pandas DataFrame. Display the first 10 rows.  
 
-# 2. **`iris.json`**  
+# 2. **`iris.json`**
 #    - Load the JSON file into a DataFrame. Show the shape of the dataset and the column names.  
 
 # 3. **`titanic.xlsx`**  
-#    - Load the Excel file into a DataFrame. Use `head` to display the first 5 rows.  
+#    - Load the Excel file into a DataFrame. Use `head` to display the first 5 rows.
 
-# 4. **Flights parquet file**  
-#    - Read the Parquet file into a DataFrame and use `info` to summarize it.  
 
-# 5. **`movie.csv`**  
+# 4. **Flights parquet file**
+#    - Read the Parquet file into a DataFrame and use `info` to summarize it.
+
+# 5. **`movie.csv`**
 #    - Load the CSV file into a DataFrame and display a random sample of 10 rows.
 
 # ---

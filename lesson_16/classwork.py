@@ -119,5 +119,18 @@ print(df)
 
 print(df.loc["Member 5"].values)
 
+##### AGGREGATION #######
+
+grouped_df = df.groupby("roles")
+print(grouped_df.count())
+
+df = pd.DataFrame(df["roles"].replace(to_replace="Wife", value="Wife/Mother"))
+print(df)
+
+df = pd.DataFrame(df["roles"].replace(to_replace="Husband", value="Husband/Father"))
+print(df)
+
+df.to_parquet("data.parquet")
+
 
 
