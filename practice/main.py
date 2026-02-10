@@ -50,28 +50,69 @@
 
 
 # Task 3.
-class Employee:
-    name: str
-    salary: float
+# class Employee:
+#     name: str
+#     salary: float
 
-    def __init__(self, *, name: str, salary: float):
-        self.name = name
-        self.salary = salary
+#     def __init__(self, *, name: str, salary: float):
+#         self.name = name
+#         self.salary = salary
 
-    def __str__(self):
-        return f"Employee(name: {self.name}, salary: {self.salary})"
+#     def __str__(self):
+#         return f"Employee(name: {self.name}, salary: {self.salary})"
 
-    def give_raise(self, *, percent) -> None:
-        self.salary = self.salary + (self.salary * (percent / 100))
+#     def give_raise(self, *, percent) -> None:
+#         self.salary = self.salary + (self.salary * (percent / 100))
 
-    def display_info(self):
-        print(self)
+#     def display_info(self):
+#         print(self)
+
+#     @property
+#     def info(self):
+#         return "Shit"
+    
 
 
-employee = Employee(name="Abdusalom", salary=2500)
-employee.display_info()
-employee.give_raise(percent=10)
-employee.display_info()
+
+# employee = Employee(name="Abdusalom", salary=2500)
+# employee.display_info()
+# employee.give_raise(percent=10)
+# employee.display_info()
+# print(employee.info)
+
+
+# Task 4.
+# import numpy as np
+
+# array = np.array([12, 45, 7, 33, 56, 21, 90, 3])
+
+# numbers_greater_than_30 = array[array > 30]
+# numbers_between_10_and_50 = array[(array >= 10) & (array <= 50)]
+
+# print(numbers_greater_than_30)
+# print(numbers_between_10_and_50)
+
+
+
+# Task 5.
+# import numpy as np
+
+# array_4x4 = np.random.randint(1, 11, (4, 4))
+# row_means = array_4x4.mean(axis=1)
+# column_sums = array_4x4.sum(axis=0)
+# max_number = array_4x4.max()
+
+# print(array_4x4)
+# print(row_means)
+# print(column_sums)
+# print(max_number)
+
+
+
+# Task 6.
+import requests
+
+
 
 
 
