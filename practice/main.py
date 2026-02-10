@@ -49,5 +49,31 @@
 # print(get_avg(numbers_list=numbers_list))
 
 
+# Task 3.
+class Employee:
+    name: str
+    salary: float
+
+    def __init__(self, *, name: str, salary: float):
+        self.name = name
+        self.salary = salary
+
+    def __str__(self):
+        return f"Employee(name: {self.name}, salary: {self.salary})"
+
+    def give_raise(self, *, percent) -> None:
+        self.salary = self.salary + (self.salary * (percent / 100))
+
+    def display_info(self):
+        print(self)
+
+
+employee = Employee(name="Abdusalom", salary=2500)
+employee.display_info()
+employee.give_raise(percent=10)
+employee.display_info()
+
+
+
 
 
