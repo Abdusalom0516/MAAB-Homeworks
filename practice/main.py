@@ -111,6 +111,30 @@
 
 # Task 6.
 import requests
+import csv
+
+BASE_URL = "https://jsonplaceholder.typicode.com/users"
+
+response = requests.get(BASE_URL)
+
+if response.status_code == 200:
+    response = response.json()
+    user_data = []
+    for user_info in response:
+        name = user_info["name"]
+        email = user_info["email"]
+        city = user_info["address"]["city"]
+        user_data.append({"name": name, "email": email, "city": city})
+
+    with open("user_data.csv", "w") as f:
+        writer = csv.DictWriter(f=f, delimiter=",", fieldnames=["name", "email", "city"])
+        writer.writeheader()
+        writer.writerows(user_data)
+
+    print(user_data)
+else:
+    print(f"Failed to get! {response.status_code}.")
+
 
 
 
