@@ -110,30 +110,63 @@
 
 
 # Task 6.
+# import requests
+# import csv
+
+# BASE_URL = "https://jsonplaceholder.typicode.com/users"
+
+# response = requests.get(BASE_URL)
+
+# if response.status_code == 200:
+#     response = response.json()
+#     user_data = []
+#     for user_info in response:
+#         name = user_info["name"]
+#         email = user_info["email"]
+#         city = user_info["address"]["city"]
+#         user_data.append({"name": name, "email": email, "city": city})
+
+#     with open("user_data.csv", "w") as f:
+#         writer = csv.DictWriter(f=f, delimiter=",", fieldnames=["name", "email", "city"])
+#         writer.writeheader()
+#         writer.writerows(user_data)
+
+#     print(user_data)
+# else:
+#     print(f"Failed to get! {response.status_code}.")
+
+
+# Task 7
+from bs4 import BeautifulSoup
 import requests
-import csv
+import pandas as pd
+import sqlite3
 
-BASE_URL = "https://jsonplaceholder.typicode.com/users"
-
+BASE_URL = "https://jovonnalondon.com/collections/all-2"
 response = requests.get(BASE_URL)
 
 if response.status_code == 200:
-    response = response.json()
-    user_data = []
-    for user_info in response:
-        name = user_info["name"]
-        email = user_info["email"]
-        city = user_info["address"]["city"]
-        user_data.append({"name": name, "email": email, "city": city})
+    soup = BeautifulSoup(response.text, "html.parser")
+    products = []
 
-    with open("user_data.csv", "w") as f:
-        writer = csv.DictWriter(f=f, delimiter=",", fieldnames=["name", "email", "city"])
-        writer.writeheader()
-        writer.writerows(user_data)
+    all_products = soup.find_all("div", class_="block-inner-inner")
+    for product in all_products:
+        product_img = "https:"+product.find_all("img", class_="rimage__image")[-1].get("src")
+        product_title = product.find("div", class_="product-block__title").text
+        product_price = str(product.find("div", class_="product-price").text).strip()
 
-    print(user_data)
+        products.append([product_img, product_title, product_price])
+
+    df = pd.DataFrame(data=products, columns=["product_img", "product_title", "product_price"])
+
+    connection = sqlite3.connect("products.db")
+    df.to_sql("products", con=connection, if_exists="replace",)
+
 else:
     print(f"Failed to get! {response.status_code}.")
+
+
+
 
 
 
