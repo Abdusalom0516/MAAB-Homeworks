@@ -1,4 +1,13 @@
 {
     "python-envs.pythonProjects": [],
-    "python-envs.defaultEnvManager": "ms-python.python:system"
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "sqltools.connections": [
+        {
+            "previewLimit": 1000,
+            "driver": "SQLite",
+            "name": "products",
+            "database": "practice/products.db"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
 }
