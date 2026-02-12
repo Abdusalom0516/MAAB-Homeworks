@@ -136,34 +136,60 @@
 #     print(f"Failed to get! {response.status_code}.")
 
 
-# Task 7
-from bs4 import BeautifulSoup
-import requests
-import pandas as pd
-import sqlite3
+# Task 7.
+# from bs4 import BeautifulSoup
+# import requests
+# import pandas as pd
+# import sqlite3
 
-BASE_URL = "https://jovonnalondon.com/collections/all-2"
-response = requests.get(BASE_URL)
+# BASE_URL = "https://jovonnalondon.com/collections/all-2"
+# response = requests.get(BASE_URL)
 
-if response.status_code == 200:
-    soup = BeautifulSoup(response.text, "html.parser")
-    products = []
+# if response.status_code == 200:
+#     soup = BeautifulSoup(response.text, "html.parser")
+#     products = []
 
-    all_products = soup.find_all("div", class_="block-inner-inner")
-    for product in all_products:
-        product_img = "https:"+product.find_all("img", class_="rimage__image")[-1].get("src")
-        product_title = product.find("div", class_="product-block__title").text
-        product_price = str(product.find("div", class_="product-price").text).strip()
+#     all_products = soup.find_all("div", class_="block-inner-inner")
+#     for product in all_products:
+#         product_img = "https:"+product.find_all("img", class_="rimage__image")[-1].get("src")
+#         product_title = product.find("div", class_="product-block__title").text
+#         product_price = str(product.find("div", class_="product-price").text).strip()
 
-        products.append([product_img, product_title, product_price])
+#         products.append([product_img, product_title, product_price])
 
-    df = pd.DataFrame(data=products, columns=["product_img", "product_title", "product_price"])
+#     df = pd.DataFrame(data=products, columns=["product_img", "product_title", "product_price"])
 
-    connection = sqlite3.connect("products.db")
-    df.to_sql("products", con=connection, if_exists="replace",)
+#     connection = sqlite3.connect("products.db")
+#     df.to_sql("products", con=connection, if_exists="replace",)
 
-else:
-    print(f"Failed to get! {response.status_code}.")
+# else:
+#     print(f"Failed to get! {response.status_code}.")
+
+
+
+# Task 8.
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+
+chrome_options = Options()
+
+# chrome_options.add_argument("--headless") # Works but does not open the browser
+chrome_options.add_argument("--disable-popup-blocking")
+chrome_options.add_experimental_option("detach", True)
+
+driver = webdriver.Chrome(options=chrome_options)
+
+driver.get("https://google.com/")
+
+search_button = driver.find_element(by=By.ID, value="APjFqb")
+
+search_button.send_keys("Vinland Saga Season 2", Keys.ENTER)
+
+
+
+
 
 
 
