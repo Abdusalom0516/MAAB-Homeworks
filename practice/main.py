@@ -248,6 +248,24 @@
 # plt.show()
 
 
+#Task 11.
+# Pandas grouping
+# import pandas as pd
+# import sqlite3
+
+# with sqlite3.connect("company.db") as connection:
+#     df = pd.read_sql("SELECT * FROM employees", con= connection)
+#     grouped_df = df.groupby(by="department")
+
+#     df["salary_after_tax"] = df["salary"] * 0.7
+#     df.to_parquet("employees.parquet")
+
+#     print(grouped_df["salary"].agg(["sum", "mean"]))
+
+
+
+
+
 
 
 
