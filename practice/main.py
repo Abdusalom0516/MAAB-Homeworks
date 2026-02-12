@@ -168,24 +168,68 @@
 
 
 # Task 8.
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+# from selenium import webdriver
+# from selenium.webdriver.chrome.options import Options
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.common.keys import Keys
 
-chrome_options = Options()
+# chrome_options = Options()
 
-# chrome_options.add_argument("--headless") # Works but does not open the browser
-chrome_options.add_argument("--disable-popup-blocking")
-chrome_options.add_experimental_option("detach", True)
+# # chrome_options.add_argument("--headless") # Works but does not open the browser
+# chrome_options.add_argument("--disable-popup-blocking")
+# chrome_options.add_experimental_option("detach", True)
 
-driver = webdriver.Chrome(options=chrome_options)
+# driver = webdriver.Chrome(options=chrome_options)
 
-driver.get("https://google.com/")
+# driver.get("https://google.com/")
 
-search_button = driver.find_element(by=By.ID, value="APjFqb")
+# search_button = driver.find_element(by=By.ID, value="APjFqb")
 
-search_button.send_keys("Vinland Saga Season 2", Keys.ENTER)
+# search_button.send_keys("Vinland Saga Season 2", Keys.ENTER)
+
+
+
+# Task 9
+# Working with SQLLite & Pandas
+
+import sqlite3
+import pandas as pd
+
+with sqlite3.connect("company.db") as connection:
+    cursor = connection.cursor()
+
+    table_create_query = """
+        DROP TABLE IF EXISTS employees;
+
+        CREATE TABLE employees(
+            id integer,
+            name text,
+            department text,
+            salary integer
+        );
+
+        INSERT INTO employees
+        VALUES
+        (1, 'Abdusalom', 'IT', 2500),
+        (2, 'Abdulmalik', 'Accounting', 1800),
+        (3, 'Malika', 'HR', 2000),
+        (4, 'Fotima', 'IT', 2100),
+        (5, 'Muhammad', 'Management', 2000);
+    """
+
+    cursor.executescript(table_create_query)
+
+
+    select_query = """
+        SELECT * FROM employees
+        WHERE salary > 2000
+    """
+    df = pd.read_sql(select_query, con=connection)
+    print(df)
+
+
+
+
 
 
 
