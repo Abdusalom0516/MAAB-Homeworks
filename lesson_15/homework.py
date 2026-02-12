@@ -109,7 +109,7 @@ X, Y = np.meshgrid(x, y)
 # Z = np.cos(X**2 + Y**2)
 Z = np.sin(np.sqrt(X**2 + Y**2))
 
-surf = ax.plot_surface(X, Y, Z, cmap="managua_r")
+surf = ax.plot_surface(X, Y, Z, cmap="rainbow_r")
 fig.colorbar(surf, shrink=0.7,  aspect=11)
 plt.tight_layout()
 
