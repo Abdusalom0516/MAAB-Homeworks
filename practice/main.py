@@ -248,7 +248,7 @@
 # plt.show()
 
 
-#Task 11.
+# Task 11.
 # Pandas grouping
 # import pandas as pd
 # import sqlite3
@@ -263,6 +263,84 @@
 #     print(grouped_df["salary"].agg(["sum", "mean"]))
 
 
+
+# Task 12.
+import pandas as pd
+
+# -----------------------------
+# Customers Table
+# -----------------------------
+customers = pd.DataFrame({
+    "customer_id": [1, 2, 3, 4, 5, 6],
+    "name": ["Alice", "Bob", "Charlie", "David", "Eva", "Frank"],
+    "city": ["New York", "London", "New York", "Paris", "Berlin", "Tokyo"],
+    "signup_date": pd.to_datetime([
+        "2023-01-10", "2023-03-22", "2023-04-05",
+        "2023-06-18", "2023-07-30", "2023-09-12"
+    ])
+})
+
+# -----------------------------
+# Orders Table
+# -----------------------------
+orders = pd.DataFrame({
+    "order_id": [101, 102, 103, 104, 105, 106, 107, 108],
+    "customer_id": [1, 2, 1, 3, 7, 2, 4, 1],  # customer_id=7 does NOT exist (join challenge)
+    "order_date": pd.to_datetime([
+        "2024-01-02", "2024-01-05", "2024-01-20", "2024-02-11",
+        "2024-02-15", "2024-03-01", "2024-03-03", "2024-03-10"
+    ]),
+    "total_amount": [120, 80, 250, 60, 90, 300, 150, 200]
+})
+
+# -----------------------------
+# Products Table
+# -----------------------------
+products = pd.DataFrame({
+    "product_id": [11, 12, 13, 14, 15],
+    "product_name": ["Laptop", "Mouse", "Keyboard", "Monitor", "Headphones"],
+    "category": ["Electronics", "Electronics", "Electronics", "Electronics", "Accessories"],
+    "price": [1000, 25, 75, 300, 150]
+})
+
+# -----------------------------
+# Order Items (Bridge Table)
+# -----------------------------
+order_items = pd.DataFrame({
+    "order_id": [101, 101, 102, 103, 104, 105, 106, 106, 107, 108],
+    "product_id": [11, 12, 12, 13, 15, 14, 11, 15, 13, 12],
+    "quantity": [1, 2, 3, 1, 1, 1, 1, 2, 2, 4]
+})
+
+# -----------------------------
+# Payments Table
+# -----------------------------
+payments = pd.DataFrame({
+    "payment_id": [5001, 5002, 5003, 5004, 5005, 5006],
+    "order_id": [101, 102, 103, 104, 106, 110],  # 110 does not exist
+    "payment_method": ["Card", "PayPal", "Card", "Card", "Wire", "Card"],
+    "payment_status": ["Completed", "Completed", "Refunded", "Completed", "Completed", "Failed"]
+})
+
+# -----------------------------
+# Reviews Table
+# -----------------------------
+reviews = pd.DataFrame({
+    "review_id": [9001, 9002, 9003, 9004, 9005],
+    "product_id": [11, 12, 11, 15, 99],  # 99 missing product
+    "rating": [5, 4, 3, 5, 2]
+})
+
+
+joined = orders.join(customers, on="customer_id",  lsuffix=None, rsuffix="_other", how="inner")[["customer_id", "name", "order_id", "order_date", "total_amount"]]
+print(joined)
+
+
+def my_function(df):
+    return df[df["total_amount"] > 100]
+
+df = joined.pipe(my_function)
+print(df)
 
 
 
