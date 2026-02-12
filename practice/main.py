@@ -191,41 +191,67 @@
 
 # Task 9
 # Working with SQLLite & Pandas
+# import sqlite3
+# import pandas as pd
 
-import sqlite3
-import pandas as pd
+# with sqlite3.connect("company.db") as connection:
+#     cursor = connection.cursor()
 
-with sqlite3.connect("company.db") as connection:
-    cursor = connection.cursor()
+#     table_create_query = """
+#         DROP TABLE IF EXISTS employees;
 
-    table_create_query = """
-        DROP TABLE IF EXISTS employees;
+#         CREATE TABLE employees(
+#             id integer,
+#             name text,
+#             department text,
+#             salary integer
+#         );
 
-        CREATE TABLE employees(
-            id integer,
-            name text,
-            department text,
-            salary integer
-        );
+#         INSERT INTO employees
+#         VALUES
+#         (1, 'Abdusalom', 'IT', 2500),
+#         (2, 'Abdulmalik', 'Accounting', 1800),
+#         (3, 'Malika', 'HR', 2000),
+#         (4, 'Fotima', 'IT', 2100),
+#         (5, 'Muhammad', 'Management', 2000);
+#     """
 
-        INSERT INTO employees
-        VALUES
-        (1, 'Abdusalom', 'IT', 2500),
-        (2, 'Abdulmalik', 'Accounting', 1800),
-        (3, 'Malika', 'HR', 2000),
-        (4, 'Fotima', 'IT', 2100),
-        (5, 'Muhammad', 'Management', 2000);
-    """
-
-    cursor.executescript(table_create_query)
+#     cursor.executescript(table_create_query)
 
 
-    select_query = """
-        SELECT * FROM employees
-        WHERE salary > 2000
-    """
-    df = pd.read_sql(select_query, con=connection)
-    print(df)
+#     select_query = """
+#         SELECT * FROM employees
+#         WHERE salary > 2000
+#     """
+#     df = pd.read_sql(select_query, con=connection)
+#     print(df)
+
+
+
+# Task 10.
+# Matplotlib
+# from matplotlib import pyplot as plt
+
+# departments = ["IT", "HR", "Finance", "Sales"]
+# salaries = [80000, 50000, 60000, 70000]
+
+# plt.subplot(2, 1, 1)
+# plt.bar(departments, salaries, color="black", width=0.5)
+# plt.title("Salaries per department")
+# plt.xlabel("Departments")
+# plt.ylabel("Salaries")
+
+# plt.subplot(2, 1, 2)
+# plt.pie(salaries, labels=departments, explode=[0, 0, 0.1, 0], autopct="%1.1f%%")
+
+# plt.tight_layout()
+# plt.show()
+
+
+
+
+
+
 
 
 
