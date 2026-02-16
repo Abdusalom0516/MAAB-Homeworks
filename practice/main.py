@@ -327,7 +327,7 @@ payments = pd.DataFrame({
 # -----------------------------
 reviews = pd.DataFrame({
     "review_id": [9001, 9002, 9003, 9004, 9005],
-    "product_id": [11, 12, 11, 15, 99],  # 99 missing product
+    "product_id": [11, 12, 11, 15, 99],
     "rating": [5, 4, 3, 5, 2]
 })
 
@@ -341,6 +341,10 @@ def my_function(df):
 
 df = joined.pipe(my_function)
 print(df)
+
+
+
+
 
 
 
