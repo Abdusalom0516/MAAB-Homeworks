@@ -51,9 +51,7 @@ print(df.info())
 df = df.apply(lambda col: col.str.strip() if col.dtype == "string" else col)
 
 # Bo‘sh stringlarni NaN yoki Null bilan almashtirish.
-df = df.replace("", pd.NA)
-print(df.head(1).to_string())
-
+df = df.replace("", "Null")
 
 # Step 3
 df["money_spent"] = df["money_spent"].str.replace(r"[^\d.]", "", regex=True)
@@ -100,6 +98,39 @@ df["score"] = df["score"].astype("string").str.strip().str.lower()
 
 df["age"] = df["age"].apply(words_to_number)
 df["score"] = df["score"].apply(words_to_number)
+
+df["date_of_join"] = df["date_of_join"].astype("object")
+df["event_time"] = df["event_time"].astype("object")
+
+# True False Series
+not_normal_date_time_series = df["date_of_join"].astype("string").str.fullmatch(r"\d+")
+
+df.loc[not_normal_date_time_series, "date_of_join"] = pd.to_datetime(
+    df.loc[not_normal_date_time_series, "date_of_join"], # Converting to data_time where the values of series is true and using that seriees index
+    unit="s",
+    errors="coerce"
+)
+
+df.loc[~not_normal_date_time_series, "date_of_join"] = pd.to_datetime(
+    df.loc[~not_normal_date_time_series, "date_of_join"], # Converting to data_time where the values of series is false and using that seriees index
+    errors="coerce"
+)
+
+
+not_normal_date_time_series = df["event_time"].astype("string").str.fullmatch(r"\d+")
+
+df.loc[not_normal_date_time_series, "event_time"] = pd.to_datetime(
+    df.loc[not_normal_date_time_series, "event_time"], # Converting to data_time where the values of series is true and using that seriees index
+    unit="s",
+    errors="coerce"
+)
+
+df.loc[~not_normal_date_time_series, "event_time"] = pd.to_datetime(
+    df.loc[~not_normal_date_time_series, "event_time"], # Converting to data_time where the values of series is false and using that seriees index
+    errors="coerce"
+)
+
+# Date columnlarni pandas datetime formatiga o‘tkazish.
 
 print(df.head(1).to_string())
 
