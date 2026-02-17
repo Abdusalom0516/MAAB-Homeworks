@@ -1,6 +1,5 @@
 import pandas as pd
-import numpy as np
-import sqlite3
+import re
 
 # Step 1.
 # Reading csv file using pandas
@@ -69,7 +68,6 @@ tens = {
     "fifty":50, "sixty":60, "seventy":70, "eighty":80, "ninety":90
 }
 
-import re
 
 def words_to_number(text):
     if pd.isna(text):
@@ -78,6 +76,8 @@ def words_to_number(text):
     text = str(text).lower().strip()
 
     if re.fullmatch(r"\d+(\.\d+)?", text):
+        if  float(text).is_integer():
+            return int(float(text))
         return float(text)
 
     text = re.sub(r"[^\w\s]", "", text)
@@ -91,15 +91,12 @@ def words_to_number(text):
         elif word in units:
             total += units[word]
         else:
-            return pd.NA  # unknown words like "excellent"
+            return pd.NA
 
     return total if total != 0 else pd.NA
 
 df["age"] = df["age"].astype("string").str.strip().str.lower()
 df["score"] = df["score"].astype("string").str.strip().str.lower()
-
-df["age"] = df["age"].str.replace(r"[^\w\s]", "", regex=True)
-df["score"] = df["score"].str.replace(r"[^\w\s]", "", regex=True)
 
 df["age"] = df["age"].apply(words_to_number)
 df["score"] = df["score"].apply(words_to_number)
