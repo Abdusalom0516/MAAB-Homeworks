@@ -1,67 +1,47 @@
-# #### **Merging and Joining**
-# 1. **Inner Join on Chinook Database**
-#    - Load the `chinook.db` database.
-#    - Perform an inner join between the `customers` and `invoices` tables on the `CustomerId` column.
-#    - Find the total number of invoices for each customer.
+# Step 1: Data bilan tanishish
+# CSV faylni ochib, birinchi 10 qatorni ko‘rish.
+# Column nomlari va sonini tekshirish.
+# Har bir columndagi missing values sonini aniqlash.
+# Data turlari (string, numeric, date, json) haqida tushuncha hosil qilish.
 
-# 2. **Outer Join on Movie Data**
-#    - Load the `movie.csv` file.
-#    - Create two smaller DataFrames:
-#      - One with only `director_name` and `color`.
-#      - Another with `director_name` and `num_critic_for_reviews`.
-#    - Perform a left join and then a full outer join on `director_name`.
-#    - Count how many rows are in the resulting DataFrames for each join type.
+# Step 2: Oddiy string tozalash
+# Har bir string columnning bo‘sh joylarini olib tashlash (strip).
+# Bo‘sh stringlarni NaN yoki Null bilan almashtirish.
 
-# ---
+# Step 3: Raqam va sanalarni tozalash
+# Age, score, GPA, attendance, money_spent kabi numeric columnlarni tozalash va int yoki float formatiga
+# keltirish.
+# Date columnlarni pandas datetime formatiga o‘tkazish.
 
-# #### **Grouping and Aggregating**
-# 1. **Grouped Aggregations on Titanic**
-#    - Group passengers by `Pclass` and calculate the following:
-#      - Average age.
-#      - Total fare.
-#      - Count of passengers.
-#    - Save the results to a new DataFrame.
+# Step 4: Email va phone validation
+# Emaillarni kichik harflarga o‘tkazish va noto‘g‘ri formatdagi emaillarni aniqlash.
+# Telefon raqamlarni tozalash va yagona standart formatga keltirish (masalan: +998...).
 
-# 2. **Multi-level Grouping on Movie Data**
-#    - Group the movies by `color` and `director_name`.
-#    - Find:
-#      - Total `num_critic_for_reviews` for each group.
-#      - Average `duration` for each group.
+# Step 5: JSON parsing
+# JSON columnlarini ochish (profile_json).
+# JSON ichidagi ma’lumotlarni alohida columnlarga ajratish: hobbies, skills, family, devices.
+# JSON ichidagi array yoki nested objectlarni tekshirish va flatten qilish.
 
-# 3. **Nested Grouping on Flights**
-#    - Group flights by `Year` and `Month` and calculate:
-#      - Total number of flights.
-#      - Average arrival delay (`ArrDelay`).
-#      - Maximum departure delay (`DepDelay`).
+# Step 6: Address parsing
+# Address columnni alohida qism va key-larga ajratish: shahar, tuman, pochta kodi.
+# Raw address columnni saqlab, yangi columnlar hosil qilish (addr_city, addr_district, addr_postal).
 
-# ---
+# Step 7: Duplicate va missing data tekshirish
+# Duplicate rowsni aniqlash va o‘chirish.
+# Muhim columnlarda missing values mavjudligini aniqlash va qaror qabul qilish (fillna yoki dropna).
 
-# #### **Applying Functions**
-# 1. **Apply a Custom Function on Titanic**
-#    - Write a function to classify passengers as `Child` (age < 18) or `Adult`.
-#    - Use `apply` to create a new column, `Age_Group`, with these values.
+# Step 8: Data normalization
+# Gender columnini standard formatga keltirish: Male / Female / Unknown.
+# Course columnlarini yagona nomga keltirish: Data Science / Python / Other.
+# Status columnlarini standart formatga keltirish (lower-case yoki uniform).
 
-# 2. **Normalize Employee Salaries**
-#    - Load the `employee.csv` file.
-#    - Normalize the salaries within each department.
+# Step 9: Final type conversion va export
+# Barcha columnlarning to‘g‘ri type da ekanligini tekshirish: string, int, float, datetime.
+# Sanalarni yagona formatga keltirish (YYYY-MM-DD HH:MM:SS).
+# Tozalangan data CSV faylga saqlash (super_dirty_students_cleaned.csv).
 
-# 3. **Custom Function on Movies**
-#    - Write a function that returns `Short`, `Medium`, or `Long` based on the duration of a movie:
-#      - `Short`: Less than 60 minutes.
-#      - `Medium`: Between 60 and 120 minutes.
-#      - `Long`: More than 120 minutes.
-#    - Apply this function to classify movies in the `movie.csv` dataset.
-
-# ---
-
-# #### **Using `pipe`**
-# 1. **Pipeline on Titanic**
-#    - Create a pipeline to:
-#      - Filter passengers who survived (`Survived == 1`).
-#      - Fill missing `Age` values with the mean.
-#      - Create a new column, `Fare_Per_Age`, by dividing `Fare` by `Age`.
-
-# 2. **Pipeline on Flights**
-#    - Create a pipeline to:
-#      - Filter flights with a departure delay greater than 30 minutes.
-#      - Add a column `Delay_Per_Hour` by dividing the delay by the scheduled flight duration.
+# Step 10: QA checks
+# Original va cleaned row sonini solishtirish.
+# Missing email va phone sonini tekshirish.
+# Numeric columnlar (GPA, attendance, score) qiymatlari to‘g‘ri diapazonda ekanligini tekshirish.
+# Duplicate rowlar yo‘qligini tasdiqlash.
