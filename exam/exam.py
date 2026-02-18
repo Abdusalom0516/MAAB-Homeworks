@@ -1,5 +1,6 @@
 import pandas as pd
 import re
+import json
 
 # Step 1.
 # Reading csv file using pandas
@@ -170,9 +171,20 @@ def normalize_uz_phone(num):
     return "+998" + local
 
 df["phone"] = df["phone"].apply(normalize_uz_phone)
-print(df.head(5).to_string())
+print(df.head(1).to_string())
 
 
+# Step 5: JSON parsing
+# JSON columnlarini ochish (profile_json).
+# JSON ichidagi ma’lumotlarni alohida columnlarga ajratish: hobbies, skills, family, devices.
+# JSON ichidagi array yoki nested objectlarni tekshirish va flatten qilish.
+
+df["hobbies"] = df["profile_json"]
 
 
-
+# {
+# 'hobbies': ['gun', 'nice'],
+# 'skills': {'tech': {'python': 2, 'excel': 5, 'sql': 1}, 'soft': ['with', 'onto']},
+# 'family': {'siblings': 4, 'income': {'father': 1198, 'mother': 1089}},
+# 'devices': [{'type': 'laptop', 'brand': 'HP', 'year': 2021}, {'type': 'phone', 'brand': 'Xiaomi', 'year': 2021}]
+# }
