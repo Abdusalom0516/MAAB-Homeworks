@@ -252,3 +252,36 @@ print(df.head(1).to_string())
 # 'family': {'siblings': 4, 'income': {'father': 1198, 'mother': 1089}},
 # 'devices': [{'type': 'laptop', 'brand': 'HP', 'year': 2021}, {'type': 'phone', 'brand': 'Xiaomi', 'year': 2021}]
 # }
+
+# df["father_income"] = df[]
+df["siblings"] = df["family"].apply(
+    lambda value: value["siblings"] if isinstance(value, dict) else pd.NA
+)
+
+df["father_income"] = df["family"].apply(
+    lambda value: value.get("income", {})["father"] if isinstance(value, dict) else pd.NA
+)
+
+df["mother_income"] = df["family"].apply(
+    lambda value: value.get("income", {})["mother"] if isinstance(value, dict) else pd.NA
+)
+
+df["soft_skills"] = df["skills"].apply(
+    lambda value: value["soft"] if isinstance(value, dict) else pd.NA
+)
+
+df["python_skill"] = df["skills"].apply(
+    lambda value: value.get("tech", {}).get("python") if isinstance(value, dict) else pd.NA
+)
+
+df["excel_skill"] = df["skills"].apply(
+    lambda value: value.get("tech", {}).get("excel") if isinstance(value, dict) else pd.NA
+)
+
+df["sql_skill"] = df["skills"].apply(
+    lambda value: value.get("tech", {}).get("sql") if isinstance(value, dict) else pd.NA
+)
+
+
+
+print(df.head(5).to_string())
