@@ -116,7 +116,7 @@ df.loc[~not_normal_date_time_series, "date_of_join"] = pd.to_datetime(
     errors="coerce"
 )
 
-
+# Date columnlarni pandas datetime formatiga o‘tkazish.
 not_normal_date_time_series = df["event_time"].astype("string").str.fullmatch(r"\d+")
 
 df.loc[not_normal_date_time_series, "event_time"] = pd.to_datetime(
@@ -130,8 +130,49 @@ df.loc[~not_normal_date_time_series, "event_time"] = pd.to_datetime(
     errors="coerce"
 )
 
-# Date columnlarni pandas datetime formatiga o‘tkazish.
+print(df.head(1).to_string())
+
+
+# Step 4: Email va phone validation
+
+# Emaillarni kichik harflarga o‘tkazish va noto‘g‘ri formatdagi emaillarni aniqlash.
+df["email"] = df["email"].str.lower()
+invalid_emails = df["email"].str.fullmatch(
+    r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}",
+    na=False
+)
+
+df.loc[invalid_emails, "email"] = "invalid_email"
 
 print(df.head(1).to_string())
+
+
+# Telefon raqamlarni tozalash va yagona standart formatga keltirish (masalan: +998...).
+
+df["phone"] = df["phone"].replace(r"\D", "", regex=True)
+
+def normalize_uz_phone(num):
+    if pd.isna(num) or num == "":
+        return pd.NA
+
+    if num.startswith("998"):
+        local = num[3:]
+    elif num.startswith("00"):
+        local = num[2:]
+    elif len(num) >= 9:
+        local = num[-9:]
+    else:
+        return pd.NA
+
+    if len(local) != 9:
+        return pd.NA
+
+    return "+998" + local
+
+df["phone"] = df["phone"].apply(normalize_uz_phone)
+print(df.head(5).to_string())
+
+
+
 
 
