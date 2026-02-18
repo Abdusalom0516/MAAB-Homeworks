@@ -282,6 +282,55 @@ df["sql_skill"] = df["skills"].apply(
     lambda value: value.get("tech", {}).get("sql") if isinstance(value, dict) else pd.NA
 )
 
+print(df.head(1).to_string())
 
+
+# Step 6: Address parsing
+# Address columnni alohida qism va key-larga ajratish: shahar, tuman, pochta kodi.
+# Raw address columnni saqlab, yangi columnlar hosil qilish (addr_city, addr_district, addr_postal).
+
+df["address_raw"] = df["address_raw"].replace("BROKEN,ADDRESS,DATA,,,", pd.NA)
+
+def extract_postal(raw_address):
+    if not isinstance(raw_address, str):
+        return pd.NA
+
+    splitted_address = raw_address.split(", ")
+    if "," not in raw_address:
+        splitted_address = raw_address.split(" ")
+    for elem in splitted_address:
+        if re.match(r"^\d{6}$", elem):
+            return elem
+    return pd.NA
+
+def extract_district(raw_address):
+    if not isinstance(raw_address, str):
+        return pd.NA
+
+    splitted_address = raw_address.split(", ")
+    if "," not in raw_address:
+        splitted_address = raw_address.split(" ")
+    for elem in splitted_address:
+        if re.match(r"[A-Za-z\s]+district$", elem):
+            return elem
+    return pd.NA
+
+
+def extract_city(raw_address):
+    if not isinstance(raw_address, str):
+        return pd.NA
+
+    splitted_address = raw_address.split(", ")
+    if "," not in raw_address:
+        splitted_address = raw_address.split(" ")
+    print(splitted_address)
+    for elem in splitted_address:
+        if re.match(r"^[A-Z]{1}[a-z]+$", elem):
+            return elem
+    return pd.NA
+
+df["addr_postal"] = df["address_raw"].apply(extract_postal)
+df["addr_district"] = df["address_raw"].apply(extract_district)
+df["addr_city"] = df["address_raw"].apply(extract_city)
 
 print(df.head(5).to_string())
