@@ -1,6 +1,9 @@
+import ast
 import pandas as pd
 import re
 import json
+
+from models.profile_model import Profile
 
 # Step 1.
 # Reading csv file using pandas
@@ -179,8 +182,69 @@ print(df.head(1).to_string())
 # JSON ichidagi ma’lumotlarni alohida columnlarga ajratish: hobbies, skills, family, devices.
 # JSON ichidagi array yoki nested objectlarni tekshirish va flatten qilish.
 
-df["hobbies"] = df["profile_json"]
+def extract_hobbies(profile_text):
+    if pd.isna(profile_text):
+        return pd.NA
 
+    try:
+        data = ast.literal_eval(profile_text) # Here I converting json into usable data
+
+        profile = Profile.from_dict(data) # Here I am converting data into profile class
+
+        return profile.hobbies
+
+    except (ValueError, SyntaxError, KeyError, TypeError):
+        return pd.NA
+
+
+def extract_skills(profile_text):
+    if pd.isna(profile_text):
+        return pd.NA
+
+    try:
+        data = ast.literal_eval(profile_text) # Here I converting json into usable data
+
+        profile = Profile.from_dict(data) # Here I am converting data into profile class
+
+        return profile.skills.to_dict()
+
+    except (ValueError, SyntaxError, KeyError, TypeError):
+        return pd.NA
+
+def extract_family(profile_text):
+    if pd.isna(profile_text):
+        return pd.NA
+
+    try:
+        data = ast.literal_eval(profile_text) # Here I converting json into usable data
+
+        profile = Profile.from_dict(data) # Here I am converting data into profile class
+
+        return profile.family.to_dict()
+
+    except (ValueError, SyntaxError, KeyError, TypeError):
+        return pd.NA
+
+def extract_devices(profile_text):
+    if pd.isna(profile_text):
+        return pd.NA
+
+    try:
+        data = ast.literal_eval(profile_text) # Here I converting json into usable data
+
+        profile = Profile.from_dict(data) # Here I am converting data into profile class
+
+        return [d.to_dict() for d in profile.devices]
+
+    except (ValueError, SyntaxError, KeyError, TypeError):
+        return pd.NA
+
+df["hobbies"] = df["profile_json"].apply(extract_hobbies)
+df["skills"] = df["profile_json"].apply(extract_skills)
+df["family"] = df["profile_json"].apply(extract_family)
+df["devices"] = df["profile_json"].apply(extract_devices)
+
+print(df.head(1).to_string())
 
 # {
 # 'hobbies': ['gun', 'nice'],

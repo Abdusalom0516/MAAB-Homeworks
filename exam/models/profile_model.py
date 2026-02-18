@@ -1,6 +1,6 @@
-from exam.models.device_model import Device
-from exam.models.family_model import Family
-from exam.models.skills_model import Skills
+from models.device_model import Device
+from models.family_model import Family
+from models.skills_model import Skills
 
 
 class Profile:
