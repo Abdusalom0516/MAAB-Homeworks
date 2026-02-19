@@ -5,6 +5,8 @@ import json
 
 from models.profile_model import Profile
 
+print("------- Step 1 -------")
+
 # Step 1.
 # Reading csv file using pandas
 df = pd.read_csv("super_dirty_students.csv")
@@ -50,6 +52,7 @@ for column in string_columns:
 print(df.info())
 
 
+print("------- Step 2 -------")
 # Step 2.
 # Har bir string columnning bo‘sh joylarini olib tashlash (strip).
 df = df.apply(lambda col: col.str.strip() if col.dtype == "string" else col)
@@ -57,6 +60,8 @@ df = df.apply(lambda col: col.str.strip() if col.dtype == "string" else col)
 # Bo‘sh stringlarni NaN yoki Null bilan almashtirish.
 df = df.replace("", "Null")
 
+
+print("------- Step 3 -------")
 # Step 3
 df["money_spent"] = df["money_spent"].str.replace(r"[^\d.]", "", regex=True)
 
@@ -136,9 +141,12 @@ df.loc[~not_normal_date_time_series, "event_time"] = pd.to_datetime(
 
 print(df.head(1).to_string())
 
+df["attendance"] = df["attendance"].astype("string").str.replace(r"[^\d.]", "", regex=True)
+df["attendance"] = pd.to_numeric(df["attendance"], errors="coerce")
 
+
+print("------- Step 4 -------")
 # Step 4: Email va phone validation
-
 # Emaillarni kichik harflarga o‘tkazish va noto‘g‘ri formatdagi emaillarni aniqlash.
 df["email"] = df["email"].str.lower()
 invalid_emails = df["email"].str.fullmatch(
@@ -177,6 +185,7 @@ df["phone"] = df["phone"].apply(normalize_uz_phone)
 print(df.head(1).to_string())
 
 
+print("------- Step 5 -------")
 # Step 5: JSON parsing
 # JSON columnlarini ochish (profile_json).
 # JSON ichidagi ma’lumotlarni alohida columnlarga ajratish: hobbies, skills, family, devices.
@@ -253,7 +262,6 @@ print(df.head(1).to_string())
 # 'devices': [{'type': 'laptop', 'brand': 'HP', 'year': 2021}, {'type': 'phone', 'brand': 'Xiaomi', 'year': 2021}]
 # }
 
-# df["father_income"] = df[]
 df["siblings"] = df["family"].apply(
     lambda value: value["siblings"] if isinstance(value, dict) else pd.NA
 )
@@ -285,6 +293,7 @@ df["sql_skill"] = df["skills"].apply(
 print(df.head(1).to_string())
 
 
+print("------- Step 6 -------")
 # Step 6: Address parsing
 # Address columnni alohida qism va key-larga ajratish: shahar, tuman, pochta kodi.
 # Raw address columnni saqlab, yangi columnlar hosil qilish (addr_city, addr_district, addr_postal).
@@ -323,7 +332,6 @@ def extract_city(raw_address):
     splitted_address = raw_address.split(", ")
     if "," not in raw_address:
         splitted_address = raw_address.split(" ")
-    print(splitted_address)
     for elem in splitted_address:
         if re.match(r"^[A-Z]{1}[a-z]+$", elem):
             return elem
@@ -333,4 +341,137 @@ df["addr_postal"] = df["address_raw"].apply(extract_postal)
 df["addr_district"] = df["address_raw"].apply(extract_district)
 df["addr_city"] = df["address_raw"].apply(extract_city)
 
-print(df.head(5).to_string())
+print(df.head(1).to_string())
+
+
+print("------- Step 7 -------")
+# Step 7: Duplicate va missing data tekshirish
+# Duplicate rowsni aniqlash va o‘chirish.
+# Muhim columnlarda missing values mavjudligini aniqlash va qaror qabul qilish (fillna yoki dropna).
+
+df = df.drop(["profile_json", "skills", "family", "devices"], axis=1) # Those columsn are unnecessayr
+
+df["hobbies"] = df["hobbies"].apply(lambda x: ", ".join(x) if isinstance(x, list) else x) # Here I had to convert list into string
+df["soft_skills"] = df["soft_skills"].apply(lambda x: ", ".join(x) if isinstance(x, list) else x)
+
+df = df.drop_duplicates() # Removing duplicates with this method
+
+df = df.dropna(subset=["student_id"])
+
+
+important_cols = [
+    "student_id",
+    "course",
+    "status",
+    "date_of_join"
+]
+
+
+
+print("------- Step 8 -------")
+# Step 8: Data normalization
+# Gender columnini standard formatga keltirish: Male / Female / Unknown.
+# Course columnlarini yagona nomga keltirish: Data Science / Python / Other.
+# Status columnlarini standart formatga keltirish (lower-case yoki uniform).
+
+def gender_fix(gender):
+    if not isinstance(gender, str):
+        return "Unknown"
+
+    gender = gender.lower()
+
+    if "f" in gender:
+        return "Female"
+    elif "male" in gender or "m":
+        return "Male"
+    else:
+        return "Unknown"
+
+
+df["gender"] = df["gender"].apply(gender_fix)
+
+
+def status_fix(status):
+    if not isinstance(status, str):
+        return pd.NA
+    else:
+        return status.lower()
+
+df["status"] = df["status"].apply(status_fix)
+
+def fix_course(course):
+    if not isinstance(course, str):
+        return "Other"
+
+    course = course.lower()
+
+    if "data" in course or "science" in course:
+        return "Data Science"
+    elif "python" in course or "py" in course:
+        return "Python"
+    else:
+        return "Other"
+
+df["course"] = df["course"].apply(fix_course)
+
+print(df["course"].head(10).to_string())
+
+
+print("------- Step 9 -------")
+# Step 9: Final type conversion va export
+# Barcha columnlarning to‘g‘ri type da ekanligini tekshirish: string, int, float, datetime.
+# Sanalarni yagona formatga keltirish (YYYY-MM-DD HH:MM:SS).
+# Tozalangan data CSV faylga saqlash (super_dirty_students_cleaned.csv).
+
+numeric_cols = [
+    "age", "gpa", "money_spent", "score", "addr_postal",
+    "siblings", "father_income", "mother_income",
+    "python_skill", "excel_skill", "sql_skill"
+]
+
+df[numeric_cols] = df[numeric_cols].apply(pd.to_numeric, errors="coerce")
+
+string_cols = [
+    "name", "gender", "phone", "email",
+    "course", "status", "remarks",
+    "addr_district", "addr_city"
+]
+
+df[string_cols] = df[string_cols].astype("string")
+
+date_cols = ["date_of_join", "event_time"]
+
+df[date_cols] = df[date_cols].apply(pd.to_datetime, errors="coerce")
+
+df.to_csv("super_dirty_students_cleaned.csv")
+
+
+print("------- Step 10 -------")
+# Step 10: QA checks
+# Original va cleaned row sonini solishtirish.
+# Missing email va phone sonini tekshirish.
+# Numeric columnlar (GPA, attendance, score) qiymatlari to‘g‘ri diapazonda ekanligini tekshirish.
+# Duplicate rowlar yo‘qligini tasdiqlash.
+
+original_df = pd.read_csv("super_dirty_students.csv")
+original_rows = original_df.shape[0]
+cleaned_rows = df.shape[0]
+
+print("Original rows:", original_rows)
+print("Cleaned rows :", cleaned_rows)
+print("Removed rows :", original_rows - cleaned_rows)
+
+print("Missing emails:", df["email"].isna().sum())
+print("Missing phones:", df["phone"].isna().sum())
+
+invalid_gpa = df[(df["gpa"] < 0) | (df["gpa"] > 4)]
+print("Invalid GPA rows:", len(invalid_gpa))
+
+invalid_score = df[(df["score"] < 0) | (df["score"] > 100)]
+print("Invalid Score rows:", len(invalid_score))
+
+invalid_attendance = df[(df["attendance"] < 0) | (df["attendance"] > 100)]
+print("Invalid Attendance rows:", len(invalid_attendance))
+
+duplicates = df.duplicated().sum()
+print("Duplicate rows:", duplicates)
