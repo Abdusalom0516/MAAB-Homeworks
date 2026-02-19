@@ -149,12 +149,12 @@ print("------- Step 4 -------")
 # Step 4: Email va phone validation
 # Emaillarni kichik harflarga o‘tkazish va noto‘g‘ri formatdagi emaillarni aniqlash.
 df["email"] = df["email"].str.lower()
-invalid_emails = df["email"].str.fullmatch(
+valid_emails = df["email"].str.fullmatch(
     r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}",
-    na=False
+    na=False # Will be automaticly False if na
 )
 
-df.loc[invalid_emails, "email"] = "invalid_email"
+df.loc[~valid_emails & df["email"].notna(), "email"] = "invalid_email"
 
 print(df.head(1).to_string())
 
@@ -463,6 +463,7 @@ print("Removed rows :", original_rows - cleaned_rows)
 
 print("Missing emails:", df["email"].isna().sum())
 print("Missing phones:", df["phone"].isna().sum())
+print("Invalid emails", df[df["email"] == "invalid_email"]["email"].count())
 
 invalid_gpa = df[(df["gpa"] < 0) | (df["gpa"] > 4)]
 print("Invalid GPA rows:", len(invalid_gpa))
