@@ -52,4 +52,21 @@ square_numbers = arr ** 2
 print(square_numbers)
 
 
+# Task 4
+import numpy as np
+
+matrix = np.random.randint(1, 11, (3, 3))
+print(matrix)
+
+col_mean = matrix.mean(axis=0)
+row_mean = matrix.mean(axis=1)
+min_value = matrix.min()
+max_value = matrix.max()
+
+print(col_mean)
+print(row_mean)
+print(min_value)
+print(max_value)
+
+
 
