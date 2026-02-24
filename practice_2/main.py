@@ -62,11 +62,47 @@ col_mean = matrix.mean(axis=0)
 row_mean = matrix.mean(axis=1)
 min_value = matrix.min()
 max_value = matrix.max()
+transpose_matrix = matrix.transpose()
+flattened = matrix.flatten()
 
+print("--------")
+print(transpose_matrix)
+print(flattened)
+print("--------")
 print(col_mean)
 print(row_mean)
 print(min_value)
 print(max_value)
+
+
+# Task 5
+import requests
+import csv
+
+URL = "https://jsonplaceholder.typicode.com/posts"
+
+response = requests.get(URL)
+
+if response.status_code == 200:
+    print("Success")
+    response = response.json()
+    print(response[0])
+
+    posts_list = []
+    for elem in response:
+        posts_list.append({
+            "userId": elem["userId"],
+            "id": elem["id"],
+            "title": elem["title"]
+        })
+
+    with open("posts.csv", "w") as f:
+        writer = csv.DictWriter(f=f, fieldnames=["userId", "id", "title"])
+        writer.writeheader()
+        writer.writerows(posts_list)
+else:
+    print("Failure")
+
 
 
 
