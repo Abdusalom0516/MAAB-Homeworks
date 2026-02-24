@@ -83,7 +83,7 @@ def words_to_number(text):
     text = str(text).lower().strip()
 
     if re.fullmatch(r"\d+(\.\d+)?", text):
-        if  float(text).is_integer():
+        if float(text).is_integer():
             return int(float(text))
         return float(text)
 
@@ -382,7 +382,7 @@ def gender_fix(gender):
 
     if "f" in gender:
         return "Female"
-    elif "male" in gender or "m":
+    elif "male" in gender and "m" in gender:
         return "Male"
     else:
         return "Unknown"
@@ -405,7 +405,7 @@ def fix_course(course):
 
     course = course.lower()
 
-    if "data" in course or "science" in course:
+    if course in ["data", "science"]:
         return "Data Science"
     elif "python" in course or "py" in course:
         return "Python"
@@ -443,6 +443,8 @@ date_cols = ["date_of_join", "event_time"]
 
 df[date_cols] = df[date_cols].apply(pd.to_datetime, errors="coerce")
 
+print(df.info())
+
 df.to_csv("super_dirty_students_cleaned.csv")
 
 
@@ -468,7 +470,7 @@ print("Invalid emails", df[df["email"] == "invalid_email"]["email"].count())
 invalid_gpa = df[(df["gpa"] < 0) | (df["gpa"] > 4)]
 print("Invalid GPA rows:", len(invalid_gpa))
 
-invalid_score = df[(df["score"] < 0) | (df["score"] > 100)]
+invalid_score = df[(df["score"] < 0) | (df["score"] > 100)]# I should have make the - to positive and the over 100 to 100
 print("Invalid Score rows:", len(invalid_score))
 
 invalid_attendance = df[(df["attendance"] < 0) | (df["attendance"] > 100)]
