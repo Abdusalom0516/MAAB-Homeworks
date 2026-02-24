@@ -11,7 +11,7 @@ for elem in data:
 print(valid_numbers)
 
 
-# Task 2
+# Task 2.
 class Student:
     def __init__(self, *, name: str, grade: int):
         self.name = name
@@ -34,7 +34,7 @@ student.increase_grade(10)
 student.display_info()
 
 
-# Task 3
+# Task 3.
 import numpy as np
 
 arr = np.array([5, 22, 13, 45, 8, 31, 60, 2])
@@ -52,7 +52,7 @@ square_numbers = arr ** 2
 print(square_numbers)
 
 
-# Task 4
+# Task 4.
 import numpy as np
 
 matrix = np.random.randint(1, 11, (3, 3))
@@ -75,7 +75,7 @@ print(min_value)
 print(max_value)
 
 
-# Task 5
+# Task 5.
 import requests
 import csv
 
@@ -104,5 +104,32 @@ else:
     print("Failure")
 
 
+# Task 6.
+import requests
+from bs4 import BeautifulSoup
+
+URL = "https://quotes.toscrape.com"
+
+response = requests.get(URL)
+
+if response.status_code == 200:
+
+    soup = BeautifulSoup(response.text, "html.parser")
+    quotes = []
+
+    all_quotes = soup.find_all("div", class_="quote")
+
+    for elem in all_quotes:
+        text = elem.find("span", class_="text")
+        author = elem.find("span", class_="author")
+        quotes.append([{
+            "quote": text,
+            "author": author
+        }])
+
+    print(quotes)
+
+else:
+    print(f"Failure {response.status_code}, {response.reason}.")
 
 
