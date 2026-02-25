@@ -133,3 +133,36 @@ else:
     print(f"Failure {response.status_code}, {response.reason}.")
 
 
+# Task 7.
+import sqlite3
+import pandas as pd
+
+with sqlite3.connect("school.db") as connection:
+    cursor = connection.cursor()
+    query = """
+        drop table if exists students;
+        create table students(
+            id INTEGER,
+            name TEXT,
+            age INTEGER,
+            grade TEXT
+        )
+    """
+    cursor.executescript(query)
+
+    cursor.executescript(
+        """
+            insert into students
+            values
+            (1, "Ali", 17, "A"),
+            (2, "Vali", 19, "B"),
+            (3, "Sara", 21, "A"),
+            (4, "John", 18, "C"),
+            (5, "Lola", 22, "B")
+        """
+    )
+
+    df = pd.read_sql("SELECT * FROM students WHERE age > 18", con=connection)
+    print(df)
+
+
