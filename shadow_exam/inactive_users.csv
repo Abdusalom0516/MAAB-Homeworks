@@ -1,0 +1,2 @@
+,employee_id,first_name,last_name,department,email,salary,hire_date,is_active,gender
+2,3,Bekzod,Tursunov,Software Development,bekzod.tursunov@company.uz,2700.75,2020-01-20,False,M

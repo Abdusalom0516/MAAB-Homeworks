@@ -1,0 +1,5 @@
+,employee_id,first_name,last_name,department,email,salary,hire_date,is_active,gender
+0,1,Ali,Karimov,Data Engineering,ali.karimov@company.uz,2500.5,2022-03-15,True,M
+1,2,Malika,Ismailova,Business Intelligence,malika.ismailova@company.uz,2200.0,2021-07-10,True,F
+3,4,Shahnoza,Yuldasheva,Software Development,shahnoza.yuldasheva@company.uz,2600.0,2023-05-01,True,F
+4,5,Dilshod,Rakhimov,Data Engineering,,2400.0,2019-11-11,True,M

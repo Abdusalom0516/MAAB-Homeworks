@@ -1,0 +1,52 @@
+[
+  {
+    "employee_id": 1,
+    "first_name": "Ali",
+    "last_name": "Karimov",
+    "department": "Data Engineering",
+    "email": "ali.karimov@company.uz",
+    "salary": 2500.50,
+    "hire_date": "2022-03-15",
+    "is_active": true
+  },
+  {
+    "employee_id": 2,
+    "first_name": "Malika",
+    "last_name": "Ismailova",
+    "department": "Business Intelligence",
+    "email": "malika.ismailova@company.uz",
+    "salary": 2200.00,
+    "hire_date": "2021-07-10",
+    "is_active": true
+  },
+  {
+    "employee_id": 3,
+    "first_name": "Bekzod",
+    "last_name": "Tursunov",
+    "department": "Software Development",
+    "email": "bekzod.tursunov@company.uz",
+    "salary": 2700.75,
+    "hire_date": "2020-01-20",
+    "is_active": false
+  },
+  {
+    "employee_id": 4,
+    "first_name": "Shahnoza",
+    "last_name": "Yuldasheva",
+    "department": "Software Development",
+    "email": "shahnoza.yuldasheva@company.uz",
+    "salary": 2600.00,
+    "hire_date": "2023-05-01",
+    "is_active": true
+  },
+  {
+    "employee_id": 5,
+    "first_name": "Dilshod",
+    "last_name": "Rakhimov",
+    "department": "Data Engineering",
+    "email": null,
+    "salary": 2400.00,
+    "hire_date": "2019-11-11",
+    "is_active": true
+  }
+]
